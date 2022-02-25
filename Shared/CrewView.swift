@@ -18,6 +18,9 @@ struct CrewView: View {
                 }
             }
         }
+        .task {
+            await viewModel.loadPeople()
+        }
     }
 }
 
