@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftyContacts",
+        "repositoryURL": "https://github.com/SwiftyContacts/SwiftyContacts.git",
+        "state": {
+          "branch": "master",
+          "revision": "6671f40607f5a8c65e40fed90517967003ec11de",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

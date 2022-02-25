@@ -17,6 +17,11 @@
 		D7831FB127C8C21F00DBF849 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9B27C8C21E00DBF849 /* Persistence.swift */; };
 		D7831FB227C8C21F00DBF849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7831F9C27C8C21F00DBF849 /* Assets.xcassets */; };
 		D7831FB327C8C21F00DBF849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7831F9C27C8C21F00DBF849 /* Assets.xcassets */; };
+		D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FBD27C8C24B00DBF849 /* CrewModel.swift */; };
+		D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FBD27C8C24B00DBF849 /* CrewModel.swift */; };
+		D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC027C8C25900DBF849 /* CrewView.swift */; };
+		D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC027C8C25900DBF849 /* CrewView.swift */; };
+		D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */ = {isa = PBXBuildFile; productRef = D7831FC427C8C2B000DBF849 /* SwiftyContacts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,8 @@
 		D7831FA127C8C21F00DBF849 /* Crew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7831FA727C8C21F00DBF849 /* Crew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7831FA927C8C21F00DBF849 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		D7831FBD27C8C24B00DBF849 /* CrewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewModel.swift; sourceTree = "<group>"; };
+		D7831FC027C8C25900DBF849 /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,11 +68,11 @@
 		D7831F9627C8C21E00DBF849 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D7831FBC27C8C22A00DBF849 /* CoreData */,
 				D7831F9927C8C21E00DBF849 /* CrewApp.swift */,
-				D7831F9A27C8C21E00DBF849 /* ContentView.swift */,
-				D7831F9B27C8C21E00DBF849 /* Persistence.swift */,
+				D7831FBD27C8C24B00DBF849 /* CrewModel.swift */,
+				D7831FC027C8C25900DBF849 /* CrewView.swift */,
 				D7831F9C27C8C21F00DBF849 /* Assets.xcassets */,
-				D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -86,6 +94,16 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
+		D7831FBC27C8C22A00DBF849 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */,
+				D7831F9B27C8C21E00DBF849 /* Persistence.swift */,
+				D7831F9A27C8C21E00DBF849 /* ContentView.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +120,9 @@
 			dependencies = (
 			);
 			name = "Crew (iOS)";
+			packageProductDependencies = (
+				D7831FC427C8C2B000DBF849 /* SwiftyContacts */,
+			);
 			productName = "Crew (iOS)";
 			productReference = D7831FA127C8C21F00DBF849 /* Crew.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +171,9 @@
 				Base,
 			);
 			mainGroup = D7831F9127C8C21E00DBF849;
+			packageReferences = (
+				D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */,
+			);
 			productRefGroup = D7831FA227C8C21F00DBF849 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -187,6 +211,8 @@
 				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
+				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
+				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FAE27C8C21F00DBF849 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +224,8 @@
 				D7831FAD27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB127C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
+				D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */,
+				D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FAF27C8C21F00DBF849 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +492,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyContacts/SwiftyContacts.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7831FC427C8C2B000DBF849 /* SwiftyContacts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */;
+			productName = SwiftyContacts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */ = {
