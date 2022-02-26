@@ -32,13 +32,18 @@ struct PersonView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading) {
                 Spacer()
-                ForEach(notes) { note in
-                    if (note.text != nil) {
-                        Text(note.text!)
+                VStack(alignment: .leading) {
+                    ForEach(notes) { note in
+                        if (note.text != nil) {
+                            Text(note.text!)
+                                .font(Font.custom("IowanOldStyle-Roman", size: 16))
+                            Spacer()
+                                .frame(height: 5)
+                        }
                     }
-                }
+                }.padding(5)
                 HStack(alignment: .bottom, spacing: 5) {
                     ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                         if newNote.isEmpty {
@@ -58,12 +63,12 @@ struct PersonView: View {
                         self.newNote = ""
                     } label: {
                         Image(systemName: "plus.circle")
-                            .padding(5)
+                            .padding(9)
                             .foregroundColor(Color(.lightGray))
                             .background(Color(.darkGray))
                     }
                     .cornerRadius(4)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 5))
                 }
             }.rotationEffect(Angle(degrees: 180))
         }.rotationEffect(Angle(degrees: 180))
@@ -89,3 +94,4 @@ struct PersonView: View {
         }
     }
 }
+

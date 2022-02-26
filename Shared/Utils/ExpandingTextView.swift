@@ -17,7 +17,7 @@ struct WrappedTextView: UIViewRepresentable {
         let view = UITextView()
         view.isEditable = true
         view.delegate = context.coordinator
-        view.font = UIFont.systemFont(ofSize: 17.0)
+        view.font = UIFont.init(name: "IowanOldStyle-Roman", size: 16)
         return view
     }
 
@@ -50,7 +50,7 @@ struct WrappedTextView: UIViewRepresentable {
 
 struct ExpandingTextView: View {
     @Binding var text: String
-    let minHeight: CGFloat = 50
+    let minHeight: CGFloat = 20
     @State private var textViewHeight: CGFloat?
 
     var body: some View {
