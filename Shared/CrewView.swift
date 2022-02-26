@@ -12,13 +12,19 @@ struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
         
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                ForEach(viewModel.people, id: \.self) { person in
-                    ContactView(contact: person)
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                    ForEach(viewModel.people, id: \.self) { person in
+                        NavigationLink(destination: PersonView(person: person)) {
+                            ContactView(contact: person)
+                        }
+                    }
                 }
             }
+            .navigationBarHidden(true)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .task {
             await viewModel.loadPeople()
         }
@@ -51,6 +57,7 @@ struct ContactView: View {
         }
         .frame(width: 80, height: 140, alignment: .center)
         .font(.footnote)
+        .foregroundColor(.black)
     }
 }
 
