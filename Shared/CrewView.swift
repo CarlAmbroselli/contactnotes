@@ -15,8 +15,8 @@ struct CrewView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                    ForEach(viewModel.people, id: \.self) { person in
-                        NavigationLink(destination: PersonView(person: person)) {
+                    ForEach(viewModel.people, id: \.identifier) { person in
+                        NavigationLink(destination: PersonView(person: person, viewModel: viewModel)) {
                             ContactView(contact: person)
                         }
                     }

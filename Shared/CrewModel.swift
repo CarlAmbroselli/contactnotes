@@ -18,10 +18,10 @@ class CrewModel: ObservableObject {
                 CNContactGivenNameKey as CNKeyDescriptor,
                 CNContactFamilyNameKey as CNKeyDescriptor,
                 CNContactImageDataKey as CNKeyDescriptor,
-                CNContactNoteKey as CNKeyDescriptor
+                CNContactNoteKey as CNKeyDescriptor,
+                CNContactIdentifierKey as CNKeyDescriptor
             ]
             fetchContacts(keysToFetch: keys, order: .userDefault, unifyResults: true, { result in
-                print(result)
                 result.map { contacts in
                     DispatchQueue.main.async {
                         self.people = contacts
@@ -29,5 +29,18 @@ class CrewModel: ObservableObject {
                 }
             })
         }
+    }
+    
+    func updateNote(contact: CNContact, note: String) -> CNContact {
+        guard let updatedContact = contact.mutableCopy() as? CNMutableContact else {
+            return contact
+        }
+        updatedContact.note = note
+        try? updateContact(updatedContact)
+        let index = self.people.firstIndex(of: contact)
+        if (index != nil) {
+            self.people[index!] = updatedContact
+        }
+        return updatedContact
     }
 }
