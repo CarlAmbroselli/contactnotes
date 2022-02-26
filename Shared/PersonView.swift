@@ -10,17 +10,36 @@ import Contacts
 
 struct PersonView: View {
     @State var person: CNContact
+    @State var newNote: String = ""
+    
     var viewModel: CrewModel
     
     var body: some View {
-        Text(person.note)
-        Button("Update note") {
-            let date = Date()
-            let formatter = ISO8601DateFormatter()
-            formatter.formatOptions.insert(.withFractionalSeconds)
-            let note = formatter.string(from: date)
-            
-            self.person = viewModel.updateNote(contact: person, note: note)
+        VStack {
+            Text(person.note)
+            Spacer()
+            ScrollView {
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+                    if newNote.isEmpty {
+                        Text("Add note...")
+                            .foregroundColor(Color(.label))
+                            .padding(.top, 8)
+                            .padding(.leading, 4)
+                    }
+                    TextEditor(text: $newNote)
+                        .opacity(newNote.isEmpty ? 0.7 : 1)
+                        .frame(minHeight: 200, alignment: .leading)
+                }
+                .padding([.leading, .trailing], 8)
+                .overlay(
+                    Rectangle()
+                        .stroke(Color(.systemGray5), lineWidth: 1.0)
+                )
+                Spacer()
+                Button("Speichern") {
+                    self.person = viewModel.updateNote(contact: person, note: newNote)
+                }
+            }
         }
 
     }
