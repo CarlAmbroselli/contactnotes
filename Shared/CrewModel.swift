@@ -9,7 +9,7 @@ import Foundation
 import SwiftyContacts
 
 class CrewModel: ObservableObject {
-    @Published var people: [String] = Array()
+    @Published var people: [CNContact] = Array()
     
     func loadPeople() async {
         let access = (try? await requestAccess()) ?? false
@@ -18,9 +18,7 @@ class CrewModel: ObservableObject {
                 return
             }
             DispatchQueue.main.async {
-                contacts.forEach { contact in
-                    self.people.append(contact.familyName)
-                }
+                self.people = contacts
             }
         }
     }
