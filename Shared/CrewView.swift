@@ -11,14 +11,28 @@ import Contacts
 struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
     @Environment(\.managedObjectContext) private var viewContext
-        
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                    ForEach(viewModel.people, id: \.identifier) { person in
-                        NavigationLink(destination: PersonView(showPerson: person, context: viewContext, model: viewModel)) {
-                            ContactView(contact: person)
+            VStack {
+                
+                TextField(
+                    "Search",
+                    text: $searchText
+                ).padding(10)
+                
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                        ForEach(viewModel.people.filter({ contact in
+                            if (searchText.isEmpty) {
+                                return true
+                            }
+                            return "\(contact.givenName) \(contact.familyName)".contains(searchText)
+                        }), id: \.identifier) { person in
+                            NavigationLink(destination: PersonView(showPerson: person, context: viewContext, model: viewModel)) {
+                                ContactView(contact: person)
+                            }
                         }
                     }
                 }
