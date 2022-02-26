@@ -11,38 +11,40 @@ import Contacts
 struct PersonView: View {
     @State var person: CNContact
     @State var newNote: String = ""
-    
     var viewModel: CrewModel
     
     var body: some View {
-        VStack {
-            Spacer()
-            ScrollView {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
                 Text(person.note)
-                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-                    if newNote.isEmpty {
-                        Text("Add note...")
-                            .foregroundColor(Color(.label))
-                            .padding(.top, 8)
-                            .padding(.leading, 4)
+                Spacer().frame(minWidth: 0, maxWidth: .infinity, minHeight:0, maxHeight: .infinity, alignment: Alignment.topLeading)
+                HStack(alignment: .bottom, spacing: 5) {
+                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+                        if newNote.isEmpty {
+                            Text("Add note...")
+                                .foregroundColor(Color(.label))
+                                .padding(.top, 8)
+                                .padding(.leading, 4)
+                        }
+                        ExpandingTextView(text: $newNote)
                     }
-                    TextEditor(text: $newNote)
-                        .opacity(newNote.isEmpty ? 0.7 : 1)
-                        .frame(minHeight: 200, alignment: .leading)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 3)
+                            .stroke(Color(.systemGray5), lineWidth: 1.0)
+                    )
+                    Button {
+                        self.person = viewModel.updateNote(contact: person, newNote: newNote)
+                        self.newNote = ""
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .padding(5)
+                            .foregroundColor(Color(.lightGray))
+                            .background(Color(.darkGray))
+                    }
+                    .cornerRadius(4)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
                 }
-                .padding([.leading, .trailing], 8)
-                .overlay(
-                    Rectangle()
-                        .stroke(Color(.systemGray5), lineWidth: 1.0)
-                )
-                Spacer()
-                Button("Speichern") {
-                    self.person = viewModel.updateNote(contact: person, newNote: newNote)
-                    self.newNote = ""
-                }
-            }
-        }
-
+            }.rotationEffect(Angle(degrees: 180))
+        }.rotationEffect(Angle(degrees: 180))
     }
-    
 }

@@ -24,6 +24,7 @@
 		D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */ = {isa = PBXBuildFile; productRef = D7831FC427C8C2B000DBF849 /* SwiftyContacts */; };
 		D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
+		D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		D7831FC027C8C25900DBF849 /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
 		D7831FC627CA0E9500DBF849 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		D79B444E27CA162F007D4B06 /* crew.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = crew.entitlements; sourceTree = "<group>"; };
+		D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		D7831F9627C8C21E00DBF849 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D79B445327CA6C56007D4B06 /* Utils */,
 				D7831FBC27C8C22A00DBF849 /* CoreData */,
 				D7831F9927C8C21E00DBF849 /* CrewApp.swift */,
 				D7831FBD27C8C24B00DBF849 /* CrewModel.swift */,
@@ -108,6 +111,14 @@
 				D7831F9A27C8C21E00DBF849 /* ContentView.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D79B445327CA6C56007D4B06 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */,
 				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,

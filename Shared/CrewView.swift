@@ -18,13 +18,16 @@ struct CrewView: View {
                     ForEach(viewModel.people, id: \.identifier) { person in
                         NavigationLink(destination: PersonView(person: person, viewModel: viewModel)) {
                             ContactView(contact: person)
+                                .navigationTitle("\(person.givenName) \(person.familyName)")
                         }
                     }
                 }
             }
             .navigationBarHidden(true)
+            .navigationBarTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(StackNavigationViewStyle())
         .task {
             await viewModel.loadPeople()
         }
