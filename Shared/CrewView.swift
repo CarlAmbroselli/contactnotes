@@ -60,7 +60,7 @@ struct ContactView: View {
         }
         .frame(width: 80, height: 140, alignment: .center)
         .font(.footnote)
-        .foregroundColor(.black)
+        .foregroundColor(.primary)
     }
 }
 
