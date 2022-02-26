@@ -10,15 +10,15 @@ import Contacts
 
 struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
+    @Environment(\.managedObjectContext) private var viewContext
         
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
                     ForEach(viewModel.people, id: \.identifier) { person in
-                        NavigationLink(destination: PersonView(person: person, viewModel: viewModel)) {
+                        NavigationLink(destination: PersonView(showPerson: person, context: viewContext, model: viewModel)) {
                             ContactView(contact: person)
-                                .navigationTitle("\(person.givenName) \(person.familyName)")
                         }
                     }
                 }

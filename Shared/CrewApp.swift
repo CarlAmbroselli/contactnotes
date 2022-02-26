@@ -9,13 +9,12 @@ import SwiftUI
 
 @main
 struct CrewApp: App {
-//    let persistenceController = PersistenceController.shared
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             CrewView(viewModel: CrewModel())
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
