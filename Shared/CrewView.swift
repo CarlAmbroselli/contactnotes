@@ -17,10 +17,22 @@ struct CrewView: View {
         NavigationView {
             VStack {
                 
-                TextField(
-                    "Search",
-                    text: $searchText
-                ).padding(10)
+                ZStack(alignment: .trailing) {
+                    TextField(
+                        "Search",
+                        text: $searchText
+                    )
+                        .padding(10)
+                    if (!self.searchText.isEmpty) {
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "multiply.circle.fill")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                }.padding([.leading, .trailing], 10)
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
@@ -56,6 +68,7 @@ struct ContactView: View {
                 if (contact.imageData != nil) {
                     Image(uiImage: UIImage(data: contact.imageData!)!)
                         .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .clipShape(Circle())
                         .frame(width: 70, height: 70, alignment: .center)
                 } else {
