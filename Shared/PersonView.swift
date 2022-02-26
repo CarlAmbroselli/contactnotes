@@ -16,9 +16,9 @@ struct PersonView: View {
     
     var body: some View {
         VStack {
-            Text(person.note)
             Spacer()
             ScrollView {
+                Text(person.note)
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                     if newNote.isEmpty {
                         Text("Add note...")
@@ -37,7 +37,8 @@ struct PersonView: View {
                 )
                 Spacer()
                 Button("Speichern") {
-                    self.person = viewModel.updateNote(contact: person, note: newNote)
+                    self.person = viewModel.updateNote(contact: person, newNote: newNote)
+                    self.newNote = ""
                 }
             }
         }
