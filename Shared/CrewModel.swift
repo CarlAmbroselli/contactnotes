@@ -135,7 +135,8 @@ class CrewModel: ObservableObject {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 
         // choose a random identifier
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let uuid = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
@@ -146,6 +147,7 @@ class CrewModel: ObservableObject {
             reminder.text = note.text
             reminder.contactName = note.contactName
             reminder.timestamp = Date().addingTimeInterval(timeInterval)
+            reminder.uuid = uuid
             try? viewContext!.save()
         }
     }
