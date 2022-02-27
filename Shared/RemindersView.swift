@@ -24,6 +24,7 @@ struct RemindersView: View {
     }
     
     var body: some View {
+        GeometryReader { geometry in
             List {
                 ForEach(reminders) { reminder in
                     VStack {
@@ -36,12 +37,13 @@ struct RemindersView: View {
                         if (reminder.text != nil) {
                             HStack {
                                 Text(reminder.text!)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
                             Spacer()
                                 .frame(height: 15)
                         }
                     }
+                    .font(Font.custom("IowanOldStyle-Roman", size: 16))
                 }.onDelete { offsets in
                     for i in offsets.makeIterator() {
                         let reminder = reminders[i]
@@ -49,5 +51,6 @@ struct RemindersView: View {
                     }
                 }
             }.listStyle(PlainListStyle())
+        }
     }
 }
