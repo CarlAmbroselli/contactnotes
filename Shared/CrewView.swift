@@ -41,6 +41,14 @@ struct CrewView: View {
                     GroupSelector(selectionAction: { group in
                         viewModel.filteredGroup = group
                     }, selectedGroup: viewModel.filteredGroup)
+                    
+                    Menu(content: {
+                        Button("Dropbox") {
+                            print("Hello")
+                        }
+                    }, label: {
+                        Image(systemName: "gear")
+                    })
                 }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {
