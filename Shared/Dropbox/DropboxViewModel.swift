@@ -13,8 +13,8 @@ class DropboxViewModel: ObservableObject {
     
     @Published var showAuthenticateDropbox = false
     @Published var authenticationStatus = "Loading..."
-    @Published var syncStatus = 0.0
     @Published var isAuthenticated: Bool?
+    @Published var syncStatus = ""
     private var authenticationTriggered = false
     
     private let dropboxModel = DropboxModel.shared
@@ -70,6 +70,9 @@ class DropboxViewModel: ObservableObject {
     }
     
     func uploadNotes() {
-        dropboxModel.uploadNotes()
+        self.syncStatus = "Loading..."
+        dropboxModel.uploadNotes { result in
+            self.syncStatus = result
+        }
     }
 }

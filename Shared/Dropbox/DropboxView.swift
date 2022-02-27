@@ -21,20 +21,12 @@ struct DropboxView : View {
             }
             if (viewModel.isAuthenticated ?? false) {
                 List {
-                    VStack {
-                        Button {
-                            viewModel.uploadNotes()
-                        } label: {
-                            Text("Sync")
-                        }
-
-                    }
-                    .listRowSeparator(.hidden)
-                    HStack {
-                        Text("File")
-                        Spacer()
-                        Text("Status")
-                    }
+                    ButtonView(action: viewModel.uploadNotes, icon: nil, text: "Upload notes")
+                        .padding(50)
+                        .listRowSeparator(.hidden)
+                    Text(viewModel.syncStatus)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
             } else {
@@ -51,6 +43,9 @@ struct DropboxView : View {
         }) : nil))
         .onAppear() {
             try? viewModel.updateDropboxState()
+        }
+        .onDisappear {
+            viewModel.syncStatus = ""
         }
         .onOpenURL { url in
             DropboxClientsManager.handleRedirectURL(url, completion: { result in
