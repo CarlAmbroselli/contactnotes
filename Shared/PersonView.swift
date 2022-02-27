@@ -103,6 +103,9 @@ struct PersonView: View {
                             Button("Remind in 30 days") {
                                 viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*30)
                             }
+                            Button("Remind in 6 months") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*30*6)
+                            }
                         })
                     }
                 }
