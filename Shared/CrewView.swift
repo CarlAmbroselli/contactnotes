@@ -12,6 +12,7 @@ struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText = ""
+    @State private var openDropboxView = false
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -44,7 +45,7 @@ struct CrewView: View {
                     
                     Menu(content: {
                         Button("Dropbox") {
-                            print("Hello")
+                            self.openDropboxView = true
                         }
                     }, label: {
                         Image(systemName: "gear")
@@ -70,6 +71,10 @@ struct CrewView: View {
             .navigationBarTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(StackNavigationViewStyle())
+            .background(
+                NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
+                    EmptyView()
+                })
         }
         .task {
             await viewModel.loadPeople()

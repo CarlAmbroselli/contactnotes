@@ -17,6 +17,7 @@ class CrewModel: ObservableObject {
             })
         }
     }
+    static var dropboxViewModel = DropboxViewModel()
     
     func loadPeople() async {
         let access = (try? await requestAccess()) ?? false

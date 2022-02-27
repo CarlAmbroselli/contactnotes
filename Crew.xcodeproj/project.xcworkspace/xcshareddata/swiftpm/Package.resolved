@@ -2,11 +2,29 @@
   "object": {
     "pins": [
       {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
+          "version": "5.5.0"
+        }
+      },
+      {
         "package": "SwiftyContacts",
         "repositoryURL": "https://github.com/SwiftyContacts/SwiftyContacts.git",
         "state": {
           "branch": "master",
           "revision": "6671f40607f5a8c65e40fed90517967003ec11de",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyDropbox",
+        "repositoryURL": "https://github.com/dropbox/SwiftyDropbox.git",
+        "state": {
+          "branch": "master",
+          "revision": "37355f57beee1843f1a8339350b4192f264230d1",
           "version": null
         }
       }
