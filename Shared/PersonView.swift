@@ -57,6 +57,7 @@ struct PersonView: View {
                                 }
                                 if (note.text != nil) {
                                     Text(note.text!)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     Spacer()
                                         .frame(height: 5)
                                 }
