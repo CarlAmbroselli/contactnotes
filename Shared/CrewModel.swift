@@ -10,8 +10,15 @@ import SwiftyContacts
 
 class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
+    @Published var filteredGroup: ContactGroup = ContactGroup.ALL_CONTACTS {
+        didSet {
+            Task.init(priority: .high, operation: {
+                await loadPeople()
+            })
+        }
+    }
     
-    func loadPeople(group: ContactGroup) async {
+    func loadPeople() async {
         let access = (try? await requestAccess()) ?? false
         if (access) {
             let keys = [
@@ -20,19 +27,9 @@ class CrewModel: ObservableObject {
                 CNContactImageDataKey as CNKeyDescriptor,
                 CNContactIdentifierKey as CNKeyDescriptor
             ]
-            if (group != ContactGroup.ALL_CONTACTS) {
-                var groups = try! fetchGroups()
-                var filterGroup = groups.first { groupElement in
-                    groupElement.name == group.rawValue
-                }
-                if (filterGroup == nil) {
-                    try! addGroup(group.rawValue)
-                    groups = try! fetchGroups()
-                    filterGroup = groups.first { groupElement in
-                        groupElement.name == group.rawValue
-                    }
-                }
-                guard let contacts = try? fetchContacts(withGroupIdentifier: filterGroup!.identifier, keysToFetch: keys) else {
+            let cnGroup = contactGroupToCnGroup(filteredGroup)
+            if (filteredGroup != ContactGroup.ALL_CONTACTS && cnGroup != nil) {
+                guard let contacts = try? fetchContacts(withGroupIdentifier: cnGroup!.identifier, keysToFetch: keys) else {
                     return
                 }
                 DispatchQueue.main.async {
@@ -40,17 +37,88 @@ class CrewModel: ObservableObject {
                 }
             } else {
                 fetchContacts(keysToFetch: keys, order: .userDefault, unifyResults: true, { result in
-                    result.map { contacts in
-                        DispatchQueue.main.async {
-                            self.people = contacts
-                        }
+                    guard let contacts = try? result.get() else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.people = contacts
                     }
                 })
             }
         }
     }
     
-    func getGroupsForPerson(person: CNContact) {
+    private func contactGroupToCnGroup(_ group: ContactGroup) -> CNGroup? {
+        if (group == ContactGroup.ALL_CONTACTS) {
+            return nil
+        }
+        var groups = try! fetchGroups()
+        var filterGroup = groups.first { groupElement in
+            groupElement.name == group.rawValue
+        }
+        if (filterGroup == nil) {
+            try! addGroup(group.rawValue)
+            groups = try! fetchGroups()
+            filterGroup = groups.first { groupElement in
+                groupElement.name == group.rawValue
+            }
+        }
+        return filterGroup
+    }
+    
+    private func getGroupsThatAreContactGroupsForPerson(_ person: CNContact) -> [CNGroup] {
+        let groups = try! fetchGroups()
+        let contactGroups = groups.filter { group in
+            ContactGroup.allCases.contains { contactGroup in
+                contactGroup.rawValue == group.name
+            }
+        }
+        var groupsOfPerson: [CNGroup] = []
         
+        let keys = [
+            CNContactIdentifierKey as CNKeyDescriptor
+        ]
+        contactGroups.forEach { group in
+            let contacts = try? fetchContacts(withGroupIdentifier: group.identifier, keysToFetch: keys)
+            if (contacts != nil) {
+                contacts?.filter({ contact in
+                    contact.identifier == person.identifier
+                }).forEach({ _ in
+                    groupsOfPerson.append(group)
+                })
+            }
+        }
+        return groupsOfPerson
+    }
+    
+    func contactGroupOfPerson(_ person: CNContact) -> ContactGroup {
+        let groups = getGroupsThatAreContactGroupsForPerson(person)
+        if (groups.isEmpty) {
+            return ContactGroup.ALL_CONTACTS
+        } else {
+            return ContactGroup.allCases.first { contactGroup in
+                contactGroup.rawValue == groups.first!.name
+            }!
+        }
+    }
+    
+    func updateGroupForPerson(person: CNContact, group targetGroup: ContactGroup) {
+        let groupsOfContact = getGroupsThatAreContactGroupsForPerson(person)
+        let groupToBeAdded = contactGroupToCnGroup(targetGroup)
+        
+        ContactGroup.allCases.forEach { possibleGroup in
+            let isMemberOf = groupsOfContact.contains(where: { groupOfContact in
+                groupOfContact.name == possibleGroup.rawValue
+            })
+            let cnGroup = contactGroupToCnGroup(possibleGroup)
+            if (!isMemberOf && possibleGroup == targetGroup && groupToBeAdded != nil) {
+                try? addContact(person, to: groupToBeAdded!)
+            } else if (isMemberOf && possibleGroup != targetGroup && cnGroup != nil) {
+                try? deleteContact(person, from: cnGroup!)
+            }
+        }
+        Task.init(priority: .medium, operation: {
+            await loadPeople()
+        })
     }
 }

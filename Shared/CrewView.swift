@@ -12,7 +12,6 @@ struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText = ""
-    @State private var selectedGroup = ContactGroup.ALL_CONTACTS
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -40,10 +39,7 @@ struct CrewView: View {
                     }
                     
                     GroupSelector(selectionAction: { group in
-                        selectedGroup = group
-                        Task.init(priority: .high, operation: {
-                            await refreshList()
-                        })
+                        viewModel.filteredGroup = group
                     })
                 }.padding([.leading, .top, .trailing], 10)
                 
@@ -68,12 +64,8 @@ struct CrewView: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
         .task {
-            await self.refreshList()
+            await viewModel.loadPeople()
         }
-    }
-    
-    func refreshList() async {
-        await viewModel.loadPeople(group: self.selectedGroup)
     }
 }
 

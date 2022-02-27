@@ -8,7 +8,7 @@
 import Foundation
 
 enum ContactGroup: String, CaseIterable {
-    case ALL_CONTACTS
+    case ALL_CONTACTS = "All contacts"
     case WEEKS_3 = "3 weeks"
     case MONTHS_2 = "2 months"
     case MONTHS_6 =  "6 months"

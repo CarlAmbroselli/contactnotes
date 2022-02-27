@@ -11,6 +11,9 @@ import CoreData
 
 struct PersonView: View {
     @State var newNote: String = ""
+    private var contactGroup: ContactGroup {
+        viewModel.contactGroupOfPerson(person)
+    }
     var person: CNContact
     var viewModel: CrewModel
     
@@ -75,9 +78,9 @@ struct PersonView: View {
         .rotationEffect(Angle(degrees: 180))
         .navigationTitle("\(person.givenName) \(person.familyName)")
         .toolbar {
-            GroupSelector(selectionAction: { group in
-                
-            })
+            GroupSelector (selectionAction: { group in
+                viewModel.updateGroupForPerson(person: person, group: group)
+            }, selectedGroup: contactGroup)
         }
     }
     
