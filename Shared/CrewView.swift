@@ -19,10 +19,6 @@ struct CrewView: View {
         UIScrollView.appearance().keyboardDismissMode = .onDrag
     }
     
-    func placeOrder() { }
-    func adjustOrder() { }
-    func cancelOrder() { }
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -46,12 +42,33 @@ struct CrewView: View {
                     Menu(selectedGroup) {
                         Button("All contacts", action: {
                             selectedGroup = "All contacts"
+                            Task.init(priority: .high, operation: {
+                                await refreshList()
+                            })
                         })
-                        Button("Group A", action: {
-                            selectedGroup = "Group A"
+                        Button("3 weeks", action: {
+                            selectedGroup = "3 weeks"
+                            Task.init(priority: .high, operation: {
+                                await refreshList()
+                            })
                         })
-                        Button("Group B", action: {
-                            selectedGroup = "Group B"
+                        Button("2 months", action: {
+                            selectedGroup = "2 months"
+                            Task.init(priority: .high, operation: {
+                                await refreshList()
+                            })
+                        })
+                        Button("6 months", action: {
+                            selectedGroup = "6 months"
+                            Task.init(priority: .high, operation: {
+                                await refreshList()
+                            })
+                        })
+                        Button("yearly", action: {
+                            selectedGroup = "yearly"
+                            Task.init(priority: .high, operation: {
+                                await refreshList()
+                            })
                         })
                     }
                 }.padding([.leading, .top, .trailing], 10)
@@ -77,8 +94,12 @@ struct CrewView: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
         .task {
-            await viewModel.loadPeople()
+            await self.refreshList()
         }
+    }
+    
+    func refreshList() async {
+        await viewModel.loadPeople(group: self.selectedGroup == "All contacts" ? nil : self.selectedGroup)
     }
 }
 
