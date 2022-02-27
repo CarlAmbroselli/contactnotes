@@ -40,7 +40,7 @@ struct CrewView: View {
                     
                     GroupSelector(selectionAction: { group in
                         viewModel.filteredGroup = group
-                    })
+                    }, selectedGroup: viewModel.filteredGroup)
                 }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {

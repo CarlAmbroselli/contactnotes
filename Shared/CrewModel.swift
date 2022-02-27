@@ -10,7 +10,7 @@ import SwiftyContacts
 
 class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
-    @Published var filteredGroup: ContactGroup = ContactGroup.ALL_CONTACTS {
+    @Published var filteredGroup: ContactGroup = ContactGroup.WEEKS_3 {
         didSet {
             Task.init(priority: .high, operation: {
                 await loadPeople()

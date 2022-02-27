@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GroupSelector: View {
     let selectionAction: (_: ContactGroup) -> Void
-    @State var selectedGroup = ContactGroup.ALL_CONTACTS
+    @State var selectedGroup: ContactGroup
     
     var body: some View {
         Menu(selectedGroup.rawValue) {
