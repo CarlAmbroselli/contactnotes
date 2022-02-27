@@ -20,13 +20,23 @@ struct DropboxView : View {
                     .padding(50)
             }
             if (viewModel.isAuthenticated ?? false) {
-                VStack {
-                    Button {
-                        print("sync plz")
-                    } label: {
-                        Text("Sync")
+                List {
+                    VStack {
+                        Button {
+                            print("sync")
+                        } label: {
+                            Text("Sync")
+                        }
+
+                    }
+                    .listRowSeparator(.hidden)
+                    HStack {
+                        Text("File")
+                        Spacer()
+                        Text("Status")
                     }
                 }
+                .listStyle(PlainListStyle())
             } else {
                 Spacer()
             }
