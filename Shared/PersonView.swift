@@ -84,6 +84,23 @@ struct PersonView: View {
                             editingNote = note
                             noteText = note.text ?? ""
                         }
+                        .contextMenu(ContextMenu {
+                            Button("Remind in 10 seconds") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 10)
+                            }
+                            Button("Remind in 1 hour") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 60*60)
+                            }
+                            Button("Remind in 1 day") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24)
+                            }
+                            Button("Remind in 7 days") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*7)
+                            }
+                            Button("Remind in 30 days") {
+                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*30)
+                            }
+                        })
                     }
                 }
                 HStack(alignment: .bottom, spacing: 5) {

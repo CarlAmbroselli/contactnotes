@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyContacts
+import UserNotifications
 
 class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
@@ -121,5 +122,21 @@ class CrewModel: ObservableObject {
         Task.init(priority: .medium, operation: {
             await loadPeople()
         })
+    }
+    
+    func scheduleNotification(note: Note, timeInterval: TimeInterval) {
+        let content = UNMutableNotificationContent()
+        content.title = note.contactName!
+        content.body = note.text!
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Contacts
+import UserNotifications
 
 struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
@@ -88,6 +89,13 @@ struct CrewView: View {
             )
         }
         .task {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                if success {
+                    print("All set!")
+                } else if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
             await viewModel.loadPeople()
         }
     }
