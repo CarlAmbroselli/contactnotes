@@ -12,27 +12,49 @@ struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText = ""
+    @State private var selectedGroup = "All contacts"
+    
+    init(viewModel: CrewModel) {
+        self.viewModel = viewModel
+        UIScrollView.appearance().keyboardDismissMode = .onDrag
+    }
+    
+    func placeOrder() { }
+    func adjustOrder() { }
+    func cancelOrder() { }
     
     var body: some View {
         NavigationView {
             VStack {
-                
-                ZStack(alignment: .trailing) {
-                    TextField(
-                        "Search",
-                        text: $searchText
-                    )
-                        .padding(10)
-                    if (!self.searchText.isEmpty) {
-                        Button(action: {
-                            self.searchText = ""
-                        }) {
-                            Image(systemName: "multiply.circle.fill")
-                                .foregroundColor(.secondary)
+                HStack {
+                    ZStack(alignment: .trailing) {
+                        TextField(
+                            "Search",
+                            text: $searchText
+                        )
+                            .padding(.trailing, 25)
+                        if (!self.searchText.isEmpty) {
+                            Button(action: {
+                                self.searchText = ""
+                            }) {
+                                Image(systemName: "multiply.circle.fill")
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
                     
-                }.padding([.leading, .trailing], 10)
+                    Menu(selectedGroup) {
+                        Button("All contacts", action: {
+                            selectedGroup = "All contacts"
+                        })
+                        Button("Group A", action: {
+                            selectedGroup = "Group A"
+                        })
+                        Button("Group B", action: {
+                            selectedGroup = "Group B"
+                        })
+                    }
+                }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
@@ -82,8 +104,8 @@ struct ContactView: View {
             .background(Color(.lightGray))
             .clipShape(Circle())
             
-            Text(contact.givenName)
-            Text(contact.familyName)
+            Text(contact.givenName).lineLimit(1)
+            Text(contact.familyName).lineLimit(1)
         }
         .frame(width: 80, height: 140, alignment: .center)
         .font(.footnote)
