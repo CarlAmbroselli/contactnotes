@@ -71,8 +71,14 @@ struct PersonView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 5))
                 }
             }.rotationEffect(Angle(degrees: 180))
-        }.rotationEffect(Angle(degrees: 180))
+        }
+        .rotationEffect(Angle(degrees: 180))
         .navigationTitle("\(person.givenName) \(person.familyName)")
+        .toolbar {
+            GroupSelector(selectionAction: { group in
+                
+            })
+        }
     }
     
     private func addNote(text: String) {

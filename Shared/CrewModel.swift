@@ -11,7 +11,7 @@ import SwiftyContacts
 class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
     
-    func loadPeople(group: String?) async {
+    func loadPeople(group: ContactGroup) async {
         let access = (try? await requestAccess()) ?? false
         if (access) {
             let keys = [
@@ -20,16 +20,16 @@ class CrewModel: ObservableObject {
                 CNContactImageDataKey as CNKeyDescriptor,
                 CNContactIdentifierKey as CNKeyDescriptor
             ]
-            if (group != nil) {
+            if (group != ContactGroup.ALL_CONTACTS) {
                 var groups = try! fetchGroups()
                 var filterGroup = groups.first { groupElement in
-                    groupElement.name == group!
+                    groupElement.name == group.rawValue
                 }
                 if (filterGroup == nil) {
-                    try! addGroup(group!)
+                    try! addGroup(group.rawValue)
                     groups = try! fetchGroups()
                     filterGroup = groups.first { groupElement in
-                        groupElement.name == group!
+                        groupElement.name == group.rawValue
                     }
                 }
                 guard let contacts = try? fetchContacts(withGroupIdentifier: filterGroup!.identifier, keysToFetch: keys) else {
@@ -48,5 +48,9 @@ class CrewModel: ObservableObject {
                 })
             }
         }
+    }
+    
+    func getGroupsForPerson(person: CNContact) {
+        
     }
 }

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A608827CB699C00A6B11A /* GroupSelector.swift */; };
+		D70A608B27CB6FBD00A6B11A /* ContactGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */; };
 		D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
 		D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
 		D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9927C8C21E00DBF849 /* CrewApp.swift */; };
 		D7831FAD27C8C21F00DBF849 /* CrewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9927C8C21E00DBF849 /* CrewApp.swift */; };
-		D7831FAE27C8C21F00DBF849 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9A27C8C21E00DBF849 /* ContentView.swift */; };
-		D7831FAF27C8C21F00DBF849 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9A27C8C21E00DBF849 /* ContentView.swift */; };
 		D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9B27C8C21E00DBF849 /* Persistence.swift */; };
 		D7831FB127C8C21F00DBF849 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9B27C8C21E00DBF849 /* Persistence.swift */; };
 		D7831FB227C8C21F00DBF849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7831F9C27C8C21F00DBF849 /* Assets.xcassets */; };
@@ -28,9 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D70A608827CB699C00A6B11A /* GroupSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelector.swift; sourceTree = "<group>"; };
+		D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroup.swift; sourceTree = "<group>"; };
 		D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		D7831F9927C8C21E00DBF849 /* CrewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewApp.swift; sourceTree = "<group>"; };
-		D7831F9A27C8C21E00DBF849 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7831F9B27C8C21E00DBF849 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D7831F9C27C8C21F00DBF849 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7831FA127C8C21F00DBF849 /* Crew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crew.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +107,6 @@
 			children = (
 				D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */,
 				D7831F9B27C8C21E00DBF849 /* Persistence.swift */,
-				D7831F9A27C8C21E00DBF849 /* ContentView.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -115,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */,
+				D70A608827CB699C00A6B11A /* GroupSelector.swift */,
+				D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -224,12 +226,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */,
+				D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */,
 				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
+				D70A608B27CB6FBD00A6B11A /* ContactGroup.swift in Sources */,
 				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
-				D7831FAE27C8C21F00DBF849 /* ContentView.swift in Sources */,
 				D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,7 +246,6 @@
 				D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
 				D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */,
-				D7831FAF27C8C21F00DBF849 /* ContentView.swift in Sources */,
 				D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,7 @@ struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText = ""
-    @State private var selectedGroup = "All contacts"
+    @State private var selectedGroup = ContactGroup.ALL_CONTACTS
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -39,38 +39,12 @@ struct CrewView: View {
                         }
                     }
                     
-                    Menu(selectedGroup) {
-                        Button("All contacts", action: {
-                            selectedGroup = "All contacts"
-                            Task.init(priority: .high, operation: {
-                                await refreshList()
-                            })
+                    GroupSelector(selectionAction: { group in
+                        selectedGroup = group
+                        Task.init(priority: .high, operation: {
+                            await refreshList()
                         })
-                        Button("3 weeks", action: {
-                            selectedGroup = "3 weeks"
-                            Task.init(priority: .high, operation: {
-                                await refreshList()
-                            })
-                        })
-                        Button("2 months", action: {
-                            selectedGroup = "2 months"
-                            Task.init(priority: .high, operation: {
-                                await refreshList()
-                            })
-                        })
-                        Button("6 months", action: {
-                            selectedGroup = "6 months"
-                            Task.init(priority: .high, operation: {
-                                await refreshList()
-                            })
-                        })
-                        Button("yearly", action: {
-                            selectedGroup = "yearly"
-                            Task.init(priority: .high, operation: {
-                                await refreshList()
-                            })
-                        })
-                    }
+                    })
                 }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {
@@ -99,7 +73,7 @@ struct CrewView: View {
     }
     
     func refreshList() async {
-        await viewModel.loadPeople(group: self.selectedGroup == "All contacts" ? nil : self.selectedGroup)
+        await viewModel.loadPeople(group: self.selectedGroup)
     }
 }
 
