@@ -89,7 +89,7 @@ struct CrewView: View {
                     NavigationLink(destination: AllNotesView(), isActive: $openAllNotesView) {
                         EmptyView()
                     }
-                    NavigationLink(destination: RemindersView(), isActive: $openRemindersView) {
+                    NavigationLink(destination: RemindersView(viewModel: viewModel), isActive: $openRemindersView) {
                         EmptyView()
                     }
                 }

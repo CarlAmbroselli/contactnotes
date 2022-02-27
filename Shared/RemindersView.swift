@@ -14,33 +14,40 @@ struct RemindersView: View {
             animation: .default)
     private var reminders: FetchedResults<Reminder>
     private var dateFormatter: DateFormatter
+    @ObservedObject var model: CrewModel
     
-    init() {
+    init(viewModel: CrewModel) {
         dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
+        model = viewModel
     }
     
     var body: some View {
-        ScrollView {
-            ForEach(reminders) { reminder in
-                VStack {
-                    if (reminder.timestamp != nil && reminder.contactName != nil) {
-                        Text("\(reminder.contactName!) | \(dateFormatter.string(from: reminder.timestamp!))")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.secondary)
-                            .padding([.bottom], 3)
-                    }
-                    if (reminder.text != nil) {
-                        HStack {
-                            Text(reminder.text!)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+            List {
+                ForEach(reminders) { reminder in
+                    VStack {
+                        if (reminder.timestamp != nil && reminder.contactName != nil) {
+                            Text("\(reminder.contactName!) | \(dateFormatter.string(from: reminder.timestamp!))")
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.secondary)
+                                .padding([.bottom], 3)
                         }
-                        Spacer()
-                            .frame(height: 15)
+                        if (reminder.text != nil) {
+                            HStack {
+                                Text(reminder.text!)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            Spacer()
+                                .frame(height: 15)
+                        }
+                    }
+                }.onDelete { offsets in
+                    for i in offsets.makeIterator() {
+                        let reminder = reminders[i]
+                        model.deleteReminder(reminder)
                     }
                 }
-            }
-        }
+            }.listStyle(PlainListStyle())
     }
 }

@@ -9,9 +9,9 @@
     </entity>
     <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
         <attribute name="contactName" optional="YES" attributeType="String"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="linkedNote" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="reminder" inverseEntity="Note"/>
     </entity>
     <elements>

@@ -147,8 +147,18 @@ class CrewModel: ObservableObject {
             reminder.text = note.text
             reminder.contactName = note.contactName
             reminder.timestamp = Date().addingTimeInterval(timeInterval)
-            reminder.uuid = uuid
+            reminder.identifier = uuid
             try? viewContext!.save()
         }
+    }
+    
+    func deleteReminder(_ reminder: Reminder) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [reminder.identifier!])
+        guard let viewContext = reminder.managedObjectContext else {
+            return 
+        }
+        viewContext.delete(reminder)
+        try? viewContext.save()
     }
 }
