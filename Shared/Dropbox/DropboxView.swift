@@ -23,7 +23,7 @@ struct DropboxView : View {
                 List {
                     VStack {
                         Button {
-                            print("sync")
+                            viewModel.uploadNotes()
                         } label: {
                             Text("Sync")
                         }

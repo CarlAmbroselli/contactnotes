@@ -38,7 +38,44 @@ class DropboxModel {
         }
     }
     
-    func uploadLocations() {
+    func uploadNotes() {
+        let timestampSort = NSSortDescriptor(key:"timestamp", ascending:true)
+        let fetchRequest = Note.fetchRequest() as NSFetchRequest<Note>
+        fetchRequest.sortDescriptors = [timestampSort]
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
+
+            guard let notes = result.finalResult else {
+              print("Failed to fetch notes")
+              return
+            }
+            let fields = ["timestamp", "contactId", "contactName", "text"]
+            var currentCsv = fields.joined(separator: ";")
+            notes.forEach({ note in
+                currentCsv += "\n" + fields.map({ field in
+                    if (field == "timestamp") {
+                        guard let timestamp = note.timestamp else {
+                            return ""
+                        }
+                        return "\(Int(timestamp.timeIntervalSince1970))"
+                    } else {
+                        return "\(note.value(forKey: field) ?? "")"
+                    }
+                }).joined(separator: ";")
+            })
+            print(currentCsv)
+        }
+        
+        do {
+            let backgroundContext = PersistenceController.shared.container.newBackgroundContext()
+            try backgroundContext.execute(asyncFetch)
+        } catch let error {
+            print("Error!!", error)
+        }
         
     }
 }

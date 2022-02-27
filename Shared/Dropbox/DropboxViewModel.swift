@@ -69,7 +69,7 @@ class DropboxViewModel: ObservableObject {
         self.isAuthenticated = false
     }
     
-    func uploadLocations() {
-        
+    func uploadNotes() {
+        dropboxModel.uploadNotes()
     }
 }
