@@ -12,7 +12,6 @@ class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
     
     func loadPeople(group: String?) async {
-        print("Loading group \(group)")
         let access = (try? await requestAccess()) ?? false
         if (access) {
             let keys = [
@@ -22,11 +21,17 @@ class CrewModel: ObservableObject {
                 CNContactIdentifierKey as CNKeyDescriptor
             ]
             if (group != nil) {
-                let groups = try! fetchGroups()
-                let filterGroup = groups.first { groupElement in
+                var groups = try! fetchGroups()
+                var filterGroup = groups.first { groupElement in
                     groupElement.name == group!
                 }
-                print("Groups \(groups)")
+                if (filterGroup == nil) {
+                    try! addGroup(group!)
+                    groups = try! fetchGroups()
+                    filterGroup = groups.first { groupElement in
+                        groupElement.name == group!
+                    }
+                }
                 guard let contacts = try? fetchContacts(withGroupIdentifier: filterGroup!.identifier, keysToFetch: keys) else {
                     return
                 }
