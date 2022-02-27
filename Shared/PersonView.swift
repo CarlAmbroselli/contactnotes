@@ -42,6 +42,10 @@ struct PersonView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Spacer()
+                    .onTapGesture {
+                        editingNote = nil
+                        noteText = ""
+                    }
                 VStack(alignment: .leading) {
                     ForEach(notes) { note in
                         ZStack {
@@ -56,16 +60,30 @@ struct PersonView: View {
                                         .foregroundColor(.secondary)
                                 }
                                 if (note.text != nil) {
-                                    Text(note.text!)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    HStack {
+                                        Text(note.text!)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        if (editingNote?.objectID == note.objectID) {
+                                            Button(action: {
+                                                self.deleteNote(note: note)
+                                            }) {
+                                                Image(systemName: "trash.fill")
+                                                    .foregroundColor(.red)
+                                                    .font(Font.subheadline)
+                                            }
+                                            .padding(10)
+                                        }
+                                    }
                                     Spacer()
                                         .frame(height: 5)
                                 }
-                            }.onTapGesture {
-                                editingNote = note
-                                noteText = note.text ?? ""
                             }
-                        }.padding(5)
+                        }
+                        .padding(5)
+                        .onTapGesture {
+                            editingNote = note
+                            noteText = note.text ?? ""
+                        }
                     }
                 }
                 HStack(alignment: .bottom, spacing: 5) {
@@ -103,6 +121,15 @@ struct PersonView: View {
             GroupSelector (selectionAction: { group in
                 viewModel.updateGroupForPerson(person: person, group: group)
             }, selectedGroup: contactGroup)
+        }
+    }
+    
+    private func deleteNote(note: Note) {
+        withAnimation {
+            viewContext.delete(note)
+            self.editingNote = nil
+            noteText = ""
+            try? viewContext.save()
         }
     }
     
