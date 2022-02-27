@@ -10,15 +10,17 @@ import Contacts
 import CoreData
 
 struct PersonView: View {
-    @State var newNote: String = ""
+    @State var noteText: String = ""
     private var contactGroup: ContactGroup {
         viewModel.contactGroupOfPerson(person)
     }
     var person: CNContact
     var viewModel: CrewModel
+    @State var editingNote: Note?
     
     private var viewContext: NSManagedObjectContext
     private var fetchRequest: FetchRequest<Note>
+    private var dateFormatter: DateFormatter
     private var notes: FetchedResults<Note> {
         fetchRequest.wrappedValue
     }
@@ -31,6 +33,9 @@ struct PersonView: View {
         person = showPerson
         viewContext = context
         viewModel = model
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
     }
     
     var body: some View {
@@ -39,31 +44,46 @@ struct PersonView: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     ForEach(notes) { note in
-                        if (note.text != nil) {
-                            Text(note.text!)
-                                .font(Font.custom("IowanOldStyle-Roman", size: 16))
-                            Spacer()
-                                .frame(height: 5)
-                        }
+                        ZStack {
+                            if (editingNote?.objectID == note.objectID) {
+                                Color.gray
+                                    .opacity(0.2)
+                            }
+                            VStack {
+                                if (note.timestamp != nil) {
+                                    Text(dateFormatter.string(from: note.timestamp!))
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        .foregroundColor(.secondary)
+                                }
+                                if (note.text != nil) {
+                                    Text(note.text!)
+                                    Spacer()
+                                        .frame(height: 5)
+                                }
+                            }.onTapGesture {
+                                editingNote = note
+                                noteText = note.text ?? ""
+                            }
+                        }.padding(5)
                     }
-                }.padding(5)
+                }
                 HStack(alignment: .bottom, spacing: 5) {
                     ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-                        if newNote.isEmpty {
+                        if noteText.isEmpty {
                             Text("Add note...")
                                 .foregroundColor(Color(.label))
                                 .padding(.top, 8)
                                 .padding(.leading, 4)
                         }
-                        ExpandingTextView(text: $newNote)
+                        ExpandingTextView(text: $noteText)
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 3)
                             .stroke(Color(.systemGray5), lineWidth: 1.0)
                     )
                     Button {
-                        addNote(text: newNote)
-                        self.newNote = ""
+                        addNote(text: noteText)
+                        self.noteText = ""
                     } label: {
                         Image(systemName: "plus.circle")
                             .padding(9)
@@ -75,6 +95,7 @@ struct PersonView: View {
                 }
             }.rotationEffect(Angle(degrees: 180))
         }
+        .font(Font.custom("IowanOldStyle-Roman", size: 16))
         .rotationEffect(Angle(degrees: 180))
         .navigationTitle("\(person.givenName) \(person.familyName)")
         .toolbar {
@@ -86,12 +107,16 @@ struct PersonView: View {
     
     private func addNote(text: String) {
         withAnimation {
-            let newNote = Note(context: viewContext)
-            newNote.timestamp = Date()
-            newNote.text = text
-            newNote.contactName = "\(person.givenName) \(person.familyName)"
-            newNote.contactId = person.identifier
-            print(newNote)
+            if (editingNote != nil) {
+                editingNote!.text = text
+            } else {
+                let newNote = Note(context: viewContext)
+                newNote.timestamp = Date()
+                newNote.text = text
+                newNote.contactName = "\(person.givenName) \(person.familyName)"
+                newNote.contactId = person.identifier
+            }
+            
             do {
                 try viewContext.save()
             } catch {
@@ -100,6 +125,7 @@ struct PersonView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+            editingNote = nil
         }
     }
 }

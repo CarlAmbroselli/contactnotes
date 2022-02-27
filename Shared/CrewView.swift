@@ -44,7 +44,7 @@ struct CrewView: View {
                 }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                         ForEach(viewModel.people.filter({ contact in
                             if (searchText.isEmpty) {
                                 return true
@@ -79,7 +79,7 @@ struct ContactView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .clipShape(Circle())
-                        .frame(width: 70, height: 70, alignment: .center)
+                        .frame(width: 95, height: 95, alignment: .center)
                 } else {
                     Text("\(contact.givenName) \(contact.familyName)".initials)
                         .foregroundColor(.white)
@@ -87,15 +87,14 @@ struct ContactView: View {
                         .fontWeight(.semibold)
                 }
             }
-            .frame(width: 70, height: 70, alignment: .center)
+            .frame(width: 95, height: 95, alignment: .center)
             .background(Color(.lightGray))
             .clipShape(Circle())
             
-            Text(contact.givenName).lineLimit(1)
-            Text(contact.familyName).lineLimit(1)
+            Text("\(contact.givenName) \(contact.familyName)").lineLimit(1)
         }
-        .frame(width: 80, height: 140, alignment: .center)
-        .font(.footnote)
+        .frame(width: 110, height: 130, alignment: .center)
+        .font(.system(size: 11))
         .foregroundColor(.primary)
     }
 }
