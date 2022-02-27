@@ -15,6 +15,8 @@
 		D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609427CBA65000A6B11A /* DropboxModel.swift */; };
 		D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = D70A609827CBC44200A6B11A /* CodableCSV */; };
 		D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */; };
+		D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746E11227CBE69200AF53F5 /* RemindersView.swift */; };
+		D746E11427CBE69200AF53F5 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746E11227CBE69200AF53F5 /* RemindersView.swift */; };
 		D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
 		D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
 		D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9927C8C21E00DBF849 /* CrewApp.swift */; };
@@ -41,6 +43,7 @@
 		D70A609427CBA65000A6B11A /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
 		D70A609627CBA8EC00A6B11A /* Crew--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Crew--iOS--Info.plist"; sourceTree = "<group>"; };
 		D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesView.swift; sourceTree = "<group>"; };
+		D746E11227CBE69200AF53F5 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
 		D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		D7831F9927C8C21E00DBF849 /* CrewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewApp.swift; sourceTree = "<group>"; };
 		D7831F9B27C8C21E00DBF849 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 				D7831FC027C8C25900DBF849 /* CrewView.swift */,
 				D7831FC627CA0E9500DBF849 /* PersonView.swift */,
 				D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */,
+				D746E11227CBE69200AF53F5 /* RemindersView.swift */,
 				D7831F9C27C8C21F00DBF849 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -268,6 +272,7 @@
 				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */,
+				D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +286,7 @@
 				D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */,
+				D746E11427CBE69200AF53F5 /* RemindersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

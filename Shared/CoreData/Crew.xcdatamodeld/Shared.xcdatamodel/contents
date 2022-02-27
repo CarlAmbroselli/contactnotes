@@ -5,8 +5,16 @@
         <attribute name="contactName" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="reminder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Reminder" inverseName="linkedNote" inverseEntity="Reminder"/>
+    </entity>
+    <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
+        <attribute name="contactName" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="linkedNote" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="reminder" inverseEntity="Note"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Note" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Reminder" positionX="-63" positionY="9" width="128" height="89"/>
     </elements>
 </model>

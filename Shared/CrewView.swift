@@ -15,6 +15,7 @@ struct CrewView: View {
     @State private var searchText = ""
     @State private var openDropboxView = false
     @State private var openAllNotesView = false
+    @State private var openRemindersView = false
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -48,6 +49,9 @@ struct CrewView: View {
                     Menu(content: {
                         Button("All Notes") {
                             self.openAllNotesView = true
+                        }
+                        Button("Reminders") {
+                            self.openRemindersView = true
                         }
                         Button("Dropbox") {
                             self.openDropboxView = true
@@ -83,6 +87,9 @@ struct CrewView: View {
                         EmptyView()
                     }
                     NavigationLink(destination: AllNotesView(), isActive: $openAllNotesView) {
+                        EmptyView()
+                    }
+                    NavigationLink(destination: RemindersView(), isActive: $openRemindersView) {
                         EmptyView()
                     }
                 }

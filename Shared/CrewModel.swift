@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyContacts
 import UserNotifications
+import CoreData
 
 class CrewModel: ObservableObject {
     @Published var people: [CNContact] = Array()
@@ -138,5 +139,14 @@ class CrewModel: ObservableObject {
 
         // add our notification request
         UNUserNotificationCenter.current().add(request)
+        
+        let viewContext = note.managedObjectContext
+        if (viewContext != nil) {
+            let reminder = Reminder(context: viewContext!)
+            reminder.text = note.text
+            reminder.contactName = note.contactName
+            reminder.timestamp = Date().addingTimeInterval(timeInterval)
+            try? viewContext!.save()
+        }
     }
 }
