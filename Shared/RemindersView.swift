@@ -10,8 +10,8 @@ import CoreData
 
 struct RemindersView: View {
     @FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.timestamp, ascending: true)],
-            animation: .default)
+        sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.timestamp, ascending: true)],
+        animation: .default)
     private var reminders: FetchedResults<Reminder>
     private var dateFormatter: DateFormatter
     @ObservedObject var model: CrewModel
@@ -24,33 +24,31 @@ struct RemindersView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            List {
-                ForEach(reminders) { reminder in
-                    VStack {
-                        if (reminder.timestamp != nil && reminder.contactName != nil) {
-                            Text("\(reminder.contactName!) | \(dateFormatter.string(from: reminder.timestamp!))")
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(.secondary)
-                                .padding([.bottom], 3)
-                        }
-                        if (reminder.text != nil) {
-                            HStack {
-                                Text(reminder.text!)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            Spacer()
-                                .frame(height: 15)
-                        }
+        List {
+            ForEach(reminders) { reminder in
+                VStack {
+                    if (reminder.timestamp != nil && reminder.contactName != nil) {
+                        Text("\(reminder.contactName!) | \(dateFormatter.string(from: reminder.timestamp!))")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .foregroundColor(.secondary)
+                            .padding([.bottom], 3)
                     }
-                    .font(Font.custom("IowanOldStyle-Roman", size: 16))
-                }.onDelete { offsets in
-                    for i in offsets.makeIterator() {
-                        let reminder = reminders[i]
-                        model.deleteReminder(reminder)
+                    if (reminder.text != nil) {
+                        HStack {
+                            Text(reminder.text!)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Spacer()
+                            .frame(height: 15)
                     }
                 }
-            }.listStyle(PlainListStyle())
-        }
+                .font(Font.custom("IowanOldStyle-Roman", size: 16))
+            }.onDelete { offsets in
+                for i in offsets.makeIterator() {
+                    let reminder = reminders[i]
+                    model.deleteReminder(reminder)
+                }
+            }
+        }.listStyle(PlainListStyle())
     }
 }
