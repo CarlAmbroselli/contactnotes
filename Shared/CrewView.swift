@@ -13,6 +13,7 @@ struct CrewView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText = ""
     @State private var openDropboxView = false
+    @State private var openAllNotesView = false
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -44,6 +45,9 @@ struct CrewView: View {
                     }, selectedGroup: viewModel.filteredGroup)
                     
                     Menu(content: {
+                        Button("All Notes") {
+                            self.openAllNotesView = true
+                        }
                         Button("Dropbox") {
                             self.openDropboxView = true
                         }
@@ -72,9 +76,15 @@ struct CrewView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
-                NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
-                    EmptyView()
-                })
+                Group {
+                    NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
+                        EmptyView()
+                    }
+                    NavigationLink(destination: AllNotesView(), isActive: $openAllNotesView) {
+                        EmptyView()
+                    }
+                }
+            )
         }
         .task {
             await viewModel.loadPeople()
