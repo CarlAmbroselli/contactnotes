@@ -54,6 +54,7 @@ struct CrewView: View {
                     }, label: {
                         Image(systemName: "gear")
                     })
+                        .padding([.leading, .trailing],  10)
                 }.padding([.leading, .top, .trailing], 10)
                 
                 ScrollView {
