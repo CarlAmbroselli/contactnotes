@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AllNotesView: View {
     @FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: true)],
+            sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: false)],
             animation: .default)
     private var notes: FetchedResults<Note>
     private var dateFormatter: DateFormatter
@@ -28,18 +28,20 @@ struct AllNotesView: View {
                         Text("\(note.contactName!) | \(dateFormatter.string(from: note.timestamp!))")
                             .frame(maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(.secondary)
-                            .padding([.bottom], 3)
+                            .padding([.trailing], 10)
                     }
                     if (note.text != nil) {
-                        HStack {
-                            Text(note.text!)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                        Text(note.text!)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.leading, .trailing], 10)
                         Spacer()
                             .frame(height: 15)
                     }
                 }
+                .rotationEffect(Angle(degrees: 180))
+                .font(Font.custom("IowanOldStyle-Roman", size: 16))
             }
         }
+        .rotationEffect(Angle(degrees: 180))
     }
 }
