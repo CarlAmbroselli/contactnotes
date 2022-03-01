@@ -8,6 +8,7 @@
 import SwiftUI
 import Contacts
 import UserNotifications
+import CoreData
 
 struct CrewView: View {
     @ObservedObject var viewModel: CrewModel
@@ -26,21 +27,7 @@ struct CrewView: View {
         NavigationView {
             VStack {
                 HStack {
-                    ZStack(alignment: .trailing) {
-                        TextField(
-                            "Search",
-                            text: $searchText
-                        )
-                            .padding(.trailing, 25)
-                        if (!self.searchText.isEmpty) {
-                            Button(action: {
-                                self.searchText = ""
-                            }) {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
+                    ContactSearch(searchText: $searchText)
                     
                     GroupSelector(selectionAction: { group in
                         viewModel.filteredGroup = group
@@ -62,39 +49,17 @@ struct CrewView: View {
                         .padding([.leading, .trailing],  10)
                 }.padding([.leading, .top, .trailing], 10)
                 
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
-                        ForEach(viewModel.people.filter({ contact in
-                            if (searchText.isEmpty) {
-                                return true
-                            }
-                            return "\(contact.givenName) \(contact.familyName)".contains(searchText)
-                        }), id: \.identifier) { person in
-                            NavigationLink(destination: PersonView(showPerson: person, context: viewContext, model: viewModel)) {
-                                ContactView(contact: person)
-                            }
-                        }
-                    }
-                }
+                ContactList(people: viewModel.people, searchText: self.searchText, viewModel: viewModel, viewContext: viewContext)
+                
             }
             .navigationBarHidden(true)
             .navigationBarTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(StackNavigationViewStyle())
             .background(
-                Group {
-                    NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
-                        EmptyView()
-                    }
-                    NavigationLink(destination: AllNotesView(), isActive: $openAllNotesView) {
-                        EmptyView()
-                    }
-                    NavigationLink(destination: RemindersView(viewModel: viewModel), isActive: $openRemindersView) {
-                        EmptyView()
-                    }
-                }
+                MenuNavigationView(viewModel: viewModel, openDropboxView: $openDropboxView, openAllNotesView: $openAllNotesView, openRemindersView: $openRemindersView)
             )
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationViewStyle(StackNavigationViewStyle())
         .task {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if success {
@@ -104,6 +69,26 @@ struct CrewView: View {
                 }
             }
             await viewModel.loadPeople()
+        }
+    }
+}
+
+struct MenuNavigationView: View {
+    var viewModel: CrewModel
+    @Binding var openDropboxView: Bool
+    @Binding var openAllNotesView: Bool
+    @Binding var openRemindersView: Bool
+    var body: some View {
+        Group {
+            NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
+                EmptyView()
+            }
+            NavigationLink(destination: AllNotesView(), isActive: $openAllNotesView) {
+                EmptyView()
+            }
+            NavigationLink(destination: RemindersView(viewModel: viewModel), isActive: $openRemindersView) {
+                EmptyView()
+            }
         }
     }
 }
@@ -135,6 +120,52 @@ struct ContactView: View {
         .frame(width: 110, height: 130, alignment: .center)
         .font(.system(size: 11))
         .foregroundColor(.primary)
+    }
+}
+
+struct ContactList: View {
+    var people: [CNContact]
+    var searchText: String
+    var viewModel: CrewModel
+    var viewContext: NSManagedObjectContext
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
+                ForEach(people.filter({ contact in
+                    if (searchText.isEmpty) {
+                        return true
+                    }
+                    return "\(contact.givenName) \(contact.familyName)".contains(searchText)
+                }), id: \.identifier) { person in
+                    NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
+                        ContactView(contact: person)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct ContactSearch: View {
+    @Binding var searchText: String
+    
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            TextField(
+                "Search",
+                text: $searchText
+            )
+                .padding(.trailing, 25)
+            if (!self.searchText.isEmpty) {
+                Button(action: {
+                    self.searchText = ""
+                }) {
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
     }
 }
 
