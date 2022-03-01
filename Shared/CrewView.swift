@@ -154,6 +154,7 @@ struct ContactSearch: View {
                 "Search",
                 text: $searchText
             )
+                .disableAutocorrection(true)
                 .padding(.trailing, 25)
             if (!self.searchText.isEmpty) {
                 Button(action: {
