@@ -54,11 +54,11 @@ struct CrewView: View {
             }
             .navigationBarHidden(true)
             .navigationBarTitle("")
+            .navigationBarTitleDisplayMode(.inline)
             .background(
                 MenuNavigationView(viewModel: viewModel, openDropboxView: $openDropboxView, openAllNotesView: $openAllNotesView, openRemindersView: $openRemindersView)
             )
         }
-        .navigationBarTitleDisplayMode(.inline)
         .navigationViewStyle(StackNavigationViewStyle())
         .task {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
