@@ -15,6 +15,8 @@
 		D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609427CBA65000A6B11A /* DropboxModel.swift */; };
 		D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = D70A609827CBC44200A6B11A /* CodableCSV */; };
 		D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */; };
+		D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274EFF27CE881A00BBC63E /* MatrixView.swift */; };
+		D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274F0127CE88EB00BBC63E /* MatrixModel.swift */; };
 		D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746E11227CBE69200AF53F5 /* RemindersView.swift */; };
 		D746E11427CBE69200AF53F5 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746E11227CBE69200AF53F5 /* RemindersView.swift */; };
 		D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
@@ -33,9 +35,13 @@
 		D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */; };
+		EF4F5D4590944554AB208268 /* libPods-Crew (iOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 123B0EDC7E651C2F036D6A19 /* libPods-Crew (iOS).a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		123B0EDC7E651C2F036D6A19 /* libPods-Crew (iOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Crew (iOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16BC2B8EA38FF6E199487A19 /* Pods-Crew (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crew (iOS).release.xcconfig"; path = "Target Support Files/Pods-Crew (iOS)/Pods-Crew (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		B0B72F03CCC36E4A7992C9BB /* Pods-Crew (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crew (iOS).debug.xcconfig"; path = "Target Support Files/Pods-Crew (iOS)/Pods-Crew (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		D70A608827CB699C00A6B11A /* GroupSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelector.swift; sourceTree = "<group>"; };
 		D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroup.swift; sourceTree = "<group>"; };
 		D70A609027CBA62800A6B11A /* DropboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxView.swift; sourceTree = "<group>"; };
@@ -43,6 +49,8 @@
 		D70A609427CBA65000A6B11A /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
 		D70A609627CBA8EC00A6B11A /* Crew--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Crew--iOS--Info.plist"; sourceTree = "<group>"; };
 		D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesView.swift; sourceTree = "<group>"; };
+		D7274EFF27CE881A00BBC63E /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
+		D7274F0127CE88EB00BBC63E /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
 		D746E11227CBE69200AF53F5 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
 		D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		D7831F9927C8C21E00DBF849 /* CrewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewApp.swift; sourceTree = "<group>"; };
@@ -65,6 +73,7 @@
 				D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */,
 				D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */,
 				D70A608F27CBA61800A6B11A /* SwiftyDropbox in Frameworks */,
+				EF4F5D4590944554AB208268 /* libPods-Crew (iOS).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C4766AE6CA1148832B07F39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				123B0EDC7E651C2F036D6A19 /* libPods-Crew (iOS).a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2ACFC4E4487BEF072787B802 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B0B72F03CCC36E4A7992C9BB /* Pods-Crew (iOS).debug.xcconfig */,
+				16BC2B8EA38FF6E199487A19 /* Pods-Crew (iOS).release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D70A608C27CBA5F400A6B11A /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +114,15 @@
 			path = Dropbox;
 			sourceTree = "<group>";
 		};
+		D7274EFC27CE87F900BBC63E /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				D7274EFF27CE881A00BBC63E /* MatrixView.swift */,
+				D7274F0127CE88EB00BBC63E /* MatrixModel.swift */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
 		D7831F9127C8C21E00DBF849 = {
 			isa = PBXGroup;
 			children = (
@@ -95,12 +130,15 @@
 				D7831F9627C8C21E00DBF849 /* Shared */,
 				D7831FA827C8C21F00DBF849 /* macOS */,
 				D7831FA227C8C21F00DBF849 /* Products */,
+				2ACFC4E4487BEF072787B802 /* Pods */,
+				1C4766AE6CA1148832B07F39 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		D7831F9627C8C21E00DBF849 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D7274EFC27CE87F900BBC63E /* Matrix */,
 				D70A608C27CBA5F400A6B11A /* Dropbox */,
 				D79B445327CA6C56007D4B06 /* Utils */,
 				D7831FBC27C8C22A00DBF849 /* CoreData */,
@@ -158,6 +196,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7831FB627C8C21F00DBF849 /* Build configuration list for PBXNativeTarget "Crew (iOS)" */;
 			buildPhases = (
+				AD1BF583D659B646F7379302 /* [CP] Check Pods Manifest.lock */,
 				D7831F9D27C8C21F00DBF849 /* Sources */,
 				D7831F9E27C8C21F00DBF849 /* Frameworks */,
 				D7831F9F27C8C21F00DBF849 /* Resources */,
@@ -254,6 +293,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AD1BF583D659B646F7379302 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Crew (iOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D7831F9D27C8C21F00DBF849 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -261,9 +325,11 @@
 			files = (
 				D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */,
 				D70A609327CBA63B00A6B11A /* DropboxViewModel.swift in Sources */,
+				D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */,
 				D70A609127CBA62800A6B11A /* DropboxView.swift in Sources */,
 				D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */,
 				D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */,
+				D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */,
 				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
@@ -406,6 +472,7 @@
 		};
 		D7831FB727C8C21F00DBF849 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0B72F03CCC36E4A7992C9BB /* Pods-Crew (iOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -440,6 +507,7 @@
 		};
 		D7831FB827C8C21F00DBF849 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16BC2B8EA38FF6E199487A19 /* Pods-Crew (iOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

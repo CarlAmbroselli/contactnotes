@@ -1,0 +1,6 @@
+module Pods_Crew__iOS_ {
+  umbrella header "Pods-Crew (iOS)-umbrella.h"
+
+  export *
+  module * { export * }
+}

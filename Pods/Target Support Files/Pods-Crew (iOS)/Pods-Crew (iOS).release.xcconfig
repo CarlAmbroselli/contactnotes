@@ -1,0 +1,17 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Realm/core"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/GZIP" "${PODS_ROOT}/Headers/Public/MatrixSDK" "${PODS_ROOT}/Headers/Public/OLMKit" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/libbase58" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Realm/Headers"
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/GZIP" "${PODS_CONFIGURATION_BUILD_DIR}/MatrixSDK" "${PODS_CONFIGURATION_BUILD_DIR}/OLMKit" "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_CONFIGURATION_BUILD_DIR}/libbase58" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Realm" /usr/lib/swift
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/MatrixSDK/MatrixSDK.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Private/Realm/Realm.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/AFNetworking/AFNetworking.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/GZIP/GZIP.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/OLMKit/OLMKit.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/libbase58/libbase58.modulemap"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"GZIP" -l"MatrixSDK" -l"OLMKit" -l"Realm" -l"c++" -l"libbase58" -l"realm-sync" -l"z" -framework "Security"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/MatrixSDK/MatrixSDK.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Private/Realm/Realm.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/AFNetworking/AFNetworking.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/GZIP/GZIP.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/OLMKit/OLMKit.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/libbase58/libbase58.modulemap"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MatrixSDK"
+USER_HEADER_SEARCH_PATHS = ${PODS_ROOT}/OLMKit/include ${PODS_ROOT}/OLMKit/lib /Users/manu/UC/matrix/github/release/olm-backup/include /Users/manu/UC/matrix/github/release/olm-backup/lib
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

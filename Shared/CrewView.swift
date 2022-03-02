@@ -17,6 +17,7 @@ struct CrewView: View {
     @State private var openDropboxView = false
     @State private var openAllNotesView = false
     @State private var openRemindersView = false
+    @State private var openMatrixView = false
     
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
@@ -43,6 +44,9 @@ struct CrewView: View {
                         Button("Dropbox") {
                             self.openDropboxView = true
                         }
+                        Button("Matrix") {
+                            self.openMatrixView = true
+                        }
                     }, label: {
                         Image(systemName: "gear")
                     })
@@ -55,7 +59,13 @@ struct CrewView: View {
             .navigationBarHidden(true)
             .navigationBarTitle("")
             .background(
-                MenuNavigationView(viewModel: viewModel, openDropboxView: $openDropboxView, openAllNotesView: $openAllNotesView, openRemindersView: $openRemindersView)
+                MenuNavigationView(
+                    viewModel: viewModel,
+                    openDropboxView: $openDropboxView,
+                    openAllNotesView: $openAllNotesView,
+                    openRemindersView: $openRemindersView,
+                    openMatrixView: $openMatrixView
+                )
             )
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -66,6 +76,7 @@ struct CrewView: View {
                     print(error.localizedDescription)
                 }
             }
+            MatrixModel.shared.sync()
             await viewModel.loadPeople()
         }
     }
@@ -76,6 +87,7 @@ struct MenuNavigationView: View {
     @Binding var openDropboxView: Bool
     @Binding var openAllNotesView: Bool
     @Binding var openRemindersView: Bool
+    @Binding var openMatrixView: Bool
     var body: some View {
         Group {
             NavigationLink(destination: DropboxView(viewModel: CrewModel.dropboxViewModel), isActive: $openDropboxView) {
@@ -85,6 +97,9 @@ struct MenuNavigationView: View {
                 EmptyView()
             }
             NavigationLink(destination: RemindersView(viewModel: viewModel), isActive: $openRemindersView) {
+                EmptyView()
+            }
+            NavigationLink(destination: MatrixView(), isActive: $openMatrixView) {
                 EmptyView()
             }
         }
