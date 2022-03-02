@@ -11,14 +11,8 @@ import UserNotifications
 import CoreData
 
 class CrewModel: ObservableObject {
-    @Published var people: [CNContact] = Array()
-    @Published var filteredGroup: ContactGroup = ContactGroup.WEEKS_3 {
-        didSet {
-            Task.init(priority: .high, operation: {
-                await loadPeople()
-            })
-        }
-    }
+    @Published var people: [ContactGroup: [CNContact]] = [ContactGroup: [CNContact]]()
+    
     static var dropboxViewModel = DropboxViewModel()
     
     func loadPeople() async {
@@ -30,23 +24,33 @@ class CrewModel: ObservableObject {
                 CNContactImageDataKey as CNKeyDescriptor,
                 CNContactIdentifierKey as CNKeyDescriptor
             ]
-            let cnGroup = contactGroupToCnGroup(filteredGroup)
-            if (filteredGroup != ContactGroup.ALL_CONTACTS && cnGroup != nil) {
-                guard let contacts = try? fetchContacts(withGroupIdentifier: cnGroup!.identifier, keysToFetch: keys) else {
+            var seenContacts: Set<String> = []
+            var loadedPeople = [ContactGroup: [CNContact]]()
+            
+            ContactGroup.allCases.filter { group in
+                group != ContactGroup.ALL_CONTACTS
+            }.forEach { contactGroup in
+                guard let contacts = try? fetchContacts(withGroupIdentifier: contactGroupToCnGroup(contactGroup)!.identifier, keysToFetch: keys) else {
                     return
                 }
-                DispatchQueue.main.async {
-                    self.people = contacts
+                loadedPeople[contactGroup] = contacts
+                contacts.forEach { contact in
+                    seenContacts.insert(contact.identifier)
                 }
-            } else {
-                fetchContacts(keysToFetch: keys, order: .userDefault, unifyResults: true, { result in
-                    guard let contacts = try? result.get() else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self.people = contacts
-                    }
-                })
+            }
+            
+            fetchContacts(keysToFetch: keys, order: .userDefault, unifyResults: true, { result in
+                guard let contacts = try? result.get() else {
+                    return
+                }
+                loadedPeople[ContactGroup.ALL_CONTACTS] = contacts.filter { contact in
+                    !seenContacts.contains(contact.identifier)
+                }
+            })
+            let peopleResult = loadedPeople
+            print("Loaded people", peopleResult)
+            DispatchQueue.main.async {
+                self.people = peopleResult
             }
         }
     }

@@ -29,10 +29,6 @@ struct CrewView: View {
                 HStack {
                     ContactSearch(searchText: $searchText)
                     
-                    GroupSelector(selectionAction: { group in
-                        viewModel.filteredGroup = group
-                    }, selectedGroup: viewModel.filteredGroup)
-                    
                     Menu(content: {
                         Button("All Notes") {
                             self.openAllNotesView = true
@@ -122,22 +118,40 @@ struct ContactView: View {
 }
 
 struct ContactList: View {
-    var people: [CNContact]
+    var people: [ContactGroup: [CNContact]]
     var searchText: String
     var viewModel: CrewModel
     var viewContext: NSManagedObjectContext
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
-                ForEach(people.filter({ contact in
+            ForEach(people.keys.sorted(by: <), id: \.self) { key in
+                if (people[key]!.filter({ contact in
                     if (searchText.isEmpty) {
                         return true
                     }
                     return "\(contact.givenName) \(contact.familyName)".contains(searchText)
-                }), id: \.identifier) { person in
-                    NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
-                        ContactView(contact: person)
+                }).count > 0) {
+                    Section(
+                        header: Text(key.rawValue)
+                            .fontWeight(.medium)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.top, .bottom], 3)
+                            .padding([.leading], 8)
+                            .background(Color.gray.opacity(0.1))
+                    ) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
+                            ForEach(people[key]!.filter({ contact in
+                                if (searchText.isEmpty) {
+                                    return true
+                                }
+                                return "\(contact.givenName) \(contact.familyName)".contains(searchText)
+                            }), id: \.identifier) { person in
+                                NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
+                                    ContactView(contact: person)
+                                }
+                            }
+                        }
                     }
                 }
             }
