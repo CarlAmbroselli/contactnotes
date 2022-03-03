@@ -48,7 +48,6 @@ class CrewModel: ObservableObject {
                 }
             })
             let peopleResult = loadedPeople
-            print("Loaded people", peopleResult)
             DispatchQueue.main.async {
                 self.people = peopleResult
             }
