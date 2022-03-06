@@ -13,14 +13,15 @@ struct MatrixView: View {
     @State var password: String = ""
     
     var body: some View {
-        
-        TextField("Username", text: $username)
-        TextField("Password", text: $password)
-        Button {
-            model.login(username: username, password: password)
-        } label: {
-            Text("Login")
+        VStack {
+            TextField("Username", text: $username).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
+            SecureField("Password", text: $password).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
+            Button {
+                model.login(username: username, password: password)
+            } label: {
+                Text("Login")
+            }
         }
-
+        .padding(10)
     }
 }
