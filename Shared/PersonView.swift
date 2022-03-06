@@ -17,6 +17,8 @@ struct PersonView: View {
     var person: CNContact
     var viewModel: CrewModel
     @State var editingNote: Note?
+    @State var longPressNote: Note?
+    @State private var showReminderPopover = false
     
     private var viewContext: NSManagedObjectContext
     private var fetchRequest: FetchRequest<Note>
@@ -53,6 +55,11 @@ struct PersonView: View {
                                 Color.gray
                                     .opacity(0.2)
                             }
+                            if (longPressNote?.objectID == note.objectID) {
+                                Color.gray
+                                    .opacity(0.2)
+                                    .cornerRadius(5)
+                            }
                             VStack {
                                 if (note.timestamp != nil) {
                                     Text(dateFormatter.string(from: note.timestamp!))
@@ -78,35 +85,26 @@ struct PersonView: View {
                                         .frame(height: 5)
                                 }
                             }
+                            .padding(5)
                         }
-                        .padding(5)
                         .onTapGesture {
                             editingNote = note
                             noteText = note.text ?? ""
+                            longPressNote = nil
                         }
-                        .contextMenu(ContextMenu {
-                            Button("Remind in 10 seconds") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 10)
-                            }
-                            Button("Remind in 1 hour") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60)
-                            }
-                            Button("Remind in 1 day") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24)
-                            }
-                            Button("Remind in 3 days") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*3)
-                            }
-                            Button("Remind in 7 days") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*7)
-                            }
-                            Button("Remind in 30 days") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*30)
-                            }
-                            Button("Remind in 6 months") {
-                                viewModel.scheduleNotification(note: note, timeInterval: 60*60*24*30*6)
-                            }
-                        })
+                        .onLongPressGesture() {
+                            self.showReminderPopover = true
+                            self.longPressNote = nil
+                            UIImpactFeedbackGenerator.init(style: .heavy).impactOccurred()
+                        }
+                        .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({ _ in
+                            self.longPressNote = note
+                        }).onEnded({ _ in
+                            self.longPressNote = nil
+                        }))
+                        .popover(isPresented: $showReminderPopover) {
+                            ReminderPopover(note: note, scheduleNotification: viewModel.scheduleNotification, showReminderPopover: $showReminderPopover)
+                        }
                     }
                 }
                 HStack(alignment: .bottom, spacing: 5) {
@@ -178,6 +176,82 @@ struct PersonView: View {
             }
             editingNote = nil
         }
+    }
+}
+    
+struct ReminderPopover: View {
+    let note: Note
+    let scheduleNotification: (Note, TimeInterval) -> Void
+    @Binding var showReminderPopover: Bool
+    @State var reminderDate = Date()
+    
+    var body: some View {
+        VStack {
+            Group{
+                Text(note.text!)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding([.bottom], 20)
+                Button("Remind in 1 hour") {
+                    scheduleNotification(note, 60*60)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+                Spacer().frame(height: 15)
+                Button("Remind in 1 day") {
+                    scheduleNotification(note, 60*60*24)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+                Spacer().frame(height: 15)
+                Button("Remind in 3 days") {
+                    scheduleNotification(note, 60*60*24*3)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+            }
+            Group {
+                Spacer().frame(height: 15)
+                Button("Remind in 7 days") {
+                    scheduleNotification(note, 60*60*24*7)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+                Spacer().frame(height: 15)
+                Button("Remind in 30 days") {
+                    scheduleNotification(note, 60*60*24*30)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+                Spacer().frame(height: 15)
+                Button("Remind in 6 months") {
+                    scheduleNotification(note, 60*60*24*30*6)
+                    showReminderPopover = false
+                }.padding(10).background(Color.blue.opacity(0.1))
+                    .cornerRadius(4)
+                Spacer().frame(height: 15)
+                
+                HStack {
+                    DatePicker(
+                        "",
+                        selection: $reminderDate,
+                        displayedComponents: [.date]
+                    ).labelsHidden()
+                    
+                    let days = Calendar.current.dateComponents([.day], from:Calendar.current.startOfDay(for: Date()) , to: Calendar.current.startOfDay(for: reminderDate)).day!
+                    if (days > 0) {
+                        Button("Remind in \(days) days") {
+                            scheduleNotification(note, reminderDate.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate)
+                            showReminderPopover = false
+                        }
+                        .padding([.top, .bottom], 7)
+                        .padding([.leading, .trailing], 10)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(6)
+                    }
+                    
+                }
+            }
+        }.padding(10)
     }
 }
 
