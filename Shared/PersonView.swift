@@ -44,9 +44,9 @@ struct PersonView: View {
     var body: some View {
         Group {
             List {
-                LastInteractionView(person: person)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets())
+//                LastInteractionView(person: person)
+//                    .listRowSeparator(.hidden)
+//                    .listRowInsets(EdgeInsets())
                 ForEach(notes) { note in
                     ZStack {
                         if (editingNote?.objectID == note.objectID) {
@@ -79,7 +79,7 @@ struct PersonView: View {
                             noteText = note.text ?? ""
                             longPressNote = nil
                         } label: {
-                            Label("Edit", systemImage: "pencil")
+                            Label("Edit", systemImage: "pencil.circle")
                         }.tint(.blue)
                         Button {
                             self.showReminderPopover = true
@@ -89,7 +89,7 @@ struct PersonView: View {
                             Label("Remind", systemImage: "alarm")
                         }.tint(.yellow)
                     }
-                    .swipeActions(edge: .trailing) {
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                       Button(role: .destructive, action: { deleteNote(note: note) } ) {
                         Label("Delete", systemImage: "trash")
                       }
@@ -119,14 +119,14 @@ struct PersonView: View {
                     self.noteText = ""
                 } label: {
                     Image(systemName: editingNote == nil ? "plus.circle" : "checkmark.circle.fill")
-                        .padding(9)
-                        .foregroundColor(Color(.lightGray))
+                        .padding(10)
+                        .foregroundColor(Color(.white))
                         .background(Color(.darkGray))
                 }
                 .cornerRadius(4)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 5))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
             }
-            .navigationTitle("\(person.givenName) \(person.familyName)")
+            .navigationTitle(person.fullName)
             .toolbar {
                 GroupSelector (selectionAction: { group in
                     viewModel.updateGroupForPerson(person: person, group: group)

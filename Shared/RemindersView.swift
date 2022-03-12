@@ -36,12 +36,13 @@ struct RemindersView: View {
                     if (reminder.text != nil) {
                         HStack {
                             Text(reminder.text!)
-                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         Spacer()
                             .frame(height: 15)
                     }
                 }
+                .listRowSeparator(.hidden)
                 .font(Font.custom("IowanOldStyle-Roman", size: 16))
             }.onDelete { offsets in
                 for i in offsets.makeIterator() {
