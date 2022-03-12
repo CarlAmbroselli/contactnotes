@@ -27,6 +27,7 @@ struct PersonView: View {
         fetchRequest.wrappedValue
     }
     
+    
     init(showPerson: CNContact, context: NSManagedObjectContext, model: CrewModel) {
         fetchRequest = FetchRequest<Note>(
             sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: true)],
@@ -43,6 +44,8 @@ struct PersonView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                
+                LastInteractionView(person: person)
                 Spacer()
                     .onTapGesture {
                         editingNote = nil

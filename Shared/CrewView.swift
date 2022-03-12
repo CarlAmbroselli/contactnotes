@@ -104,31 +104,29 @@ struct MenuNavigationView: View {
 
 struct ContactView: View {
     var contact: CNContact
+    let pictureSize = 40.0
     var body: some View {
-        VStack {
+        HStack {
             ZStack {
                 if (contact.imageData != nil) {
                     Image(uiImage: UIImage(data: contact.imageData!)!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .clipShape(Circle())
-                        .frame(width: 95, height: 95, alignment: .center)
+                        .frame(width: pictureSize, height: pictureSize, alignment: .center)
                 } else {
                     Text("\(contact.givenName) \(contact.familyName)".initials)
                         .foregroundColor(.white)
-                        .font(.system(.title, design: .rounded))
+                        .font(.system(.body, design: .rounded))
                         .fontWeight(.semibold)
                 }
             }
-            .frame(width: 95, height: 95, alignment: .center)
+            .frame(width: pictureSize, height: pictureSize, alignment: .center)
             .background(Color(.lightGray))
             .clipShape(Circle())
-            
+
             Text("\(contact.givenName) \(contact.familyName)").lineLimit(1)
         }
-        .frame(width: 110, height: 130, alignment: .center)
-        .font(.system(size: 11))
-        .foregroundColor(.primary)
     }
 }
 
@@ -138,39 +136,44 @@ struct ContactList: View {
     var viewModel: CrewModel
     var viewContext: NSManagedObjectContext
     
+    func filteredPeople(key: ContactGroup) -> [CNContact] {
+        return people[key]!.filter({ contact in
+            if (searchText.isEmpty) {
+                return true
+            }
+            return contact.fullName.lowercased().contains(searchText.lowercased())
+        })
+    }
+    
     var body: some View {
-        ScrollView {
+        List {
             ForEach(people.keys.sorted(by: <), id: \.self) { key in
-                if (people[key]!.filter({ contact in
-                    if (searchText.isEmpty) {
-                        return true
-                    }
-                    return "\(contact.givenName) \(contact.familyName)".contains(searchText)
-                }).count > 0) {
-                    Section(
-                        header: Text(key.rawValue)
-                            .fontWeight(.medium)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.top, .bottom], 3)
-                            .padding([.leading], 8)
-                            .background(Color.gray.opacity(0.1))
-                    ) {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
-                            ForEach(people[key]!.filter({ contact in
-                                if (searchText.isEmpty) {
-                                    return true
-                                }
-                                return "\(contact.givenName) \(contact.familyName)".contains(searchText)
-                            }), id: \.identifier) { person in
-                                NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
+                if (filteredPeople(key: key).count > 0) {
+                    Section(header: Text(key.rawValue)) {
+                        ForEach(filteredPeople(key: key), id: \.identifier) { person in
+                            NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
+                                HStack{
+                                    Image(systemName: "circle.fill").foregroundColor(Color.blue).font(Font.system(size:8))
+                                        .padding(.leading, 5)
+                                        .padding(.trailing, -3)
                                     ContactView(contact: person)
                                 }
                             }
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    print("Awesome!")
+                                } label: {
+                                    Label("Mark", systemImage: "envelope.badge.fill")
+                                }
+                                .tint(.blue)
+                            }
+                            .listRowInsets(EdgeInsets())
+                            .padding([.top, .bottom, .trailing], 10)
                         }
                     }
                 }
             }
-        }
+        }.listStyle(GroupedListStyle())
     }
 }
 
@@ -185,6 +188,7 @@ struct ContactSearch: View {
             )
                 .disableAutocorrection(true)
                 .padding(.trailing, 25)
+                .padding(.leading, 10)
             if (!self.searchText.isEmpty) {
                 Button(action: {
                     self.searchText = ""

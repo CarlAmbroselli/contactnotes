@@ -35,6 +35,8 @@
 		D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */; };
+		D79F991E27D51C8F00E76FBA /* LastInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */; };
+		D79F992027D5218A00E76FBA /* LastInteractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */; };
 		EF4F5D4590944554AB208268 /* libPods-Crew (iOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 123B0EDC7E651C2F036D6A19 /* libPods-Crew (iOS).a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,8 @@
 		D7831FC027C8C25900DBF849 /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
 		D7831FC627CA0E9500DBF849 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTextView.swift; sourceTree = "<group>"; };
+		D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastInteractionView.swift; sourceTree = "<group>"; };
+		D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastInteractionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,8 @@
 				D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */,
 				D70A608827CB699C00A6B11A /* GroupSelector.swift */,
 				D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */,
+				D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */,
+				D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 			files = (
 				D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */,
 				D70A609327CBA63B00A6B11A /* DropboxViewModel.swift in Sources */,
+				D79F992027D5218A00E76FBA /* LastInteractionModel.swift in Sources */,
 				D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */,
 				D70A609127CBA62800A6B11A /* DropboxView.swift in Sources */,
 				D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */,
@@ -335,6 +342,7 @@
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
 				D70A608B27CB6FBD00A6B11A /* ContactGroup.swift in Sources */,
 				D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */,
+				D79F991E27D51C8F00E76FBA /* LastInteractionView.swift in Sources */,
 				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */,

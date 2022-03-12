@@ -165,3 +165,9 @@ class CrewModel: ObservableObject {
         try? viewContext.save()
     }
 }
+
+extension CNContact {
+    var fullName: String {
+        return "\(self.givenName) \(self.familyName)".trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}

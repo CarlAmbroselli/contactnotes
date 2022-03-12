@@ -11,17 +11,40 @@ struct MatrixView: View {
     var model = MatrixModel.shared
     @State var username: String = ""
     @State var password: String = ""
+    @State var homeserver: String = ""
     
     var body: some View {
         VStack {
-            TextField("Username", text: $username).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
-            SecureField("Password", text: $password).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
-            Button {
-                model.login(username: username, password: password)
-            } label: {
-                Text("Login")
+            if (!model.isAuthenticated) {
+                VStack {
+                    TextField("Homeserver", text: $homeserver).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
+                    TextField("Username", text: $username).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
+                    SecureField("Password", text: $password).disableAutocorrection(true).textInputAutocapitalization(.never).padding(10).textFieldStyle(.roundedBorder)
+                    Button {
+                        model.login(username: username, password: password, homeserver: homeserver)
+                    } label: {
+                        Text("Login")
+                    }
+                }
+                .padding(10)
+            } else {
+                Text("Already authenticated.")
+                
+                
+                Button {
+//                    model.printRoomsWithUser(name: "0xca")
+                } label: {
+                    Text("Print rooms with 0xca")
+                }
+                
+                
+                Button {
+                    model.logout()
+                } label: {
+                    Text("Logout")
+                }
             }
+            
         }
-        .padding(10)
     }
 }
