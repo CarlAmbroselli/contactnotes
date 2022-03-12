@@ -34,6 +34,7 @@
 		D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */ = {isa = PBXBuildFile; productRef = D7831FC427C8C2B000DBF849 /* SwiftyContacts */; };
 		D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
 		D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
+		D79AE9C627DD04340027FAA7 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9C527DD04340027FAA7 /* NotificationHandler.swift */; };
 		D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */; };
 		D79F991E27D51C8F00E76FBA /* LastInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */; };
 		D79F992027D5218A00E76FBA /* LastInteractionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */; };
@@ -64,6 +65,7 @@
 		D7831FBD27C8C24B00DBF849 /* CrewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewModel.swift; sourceTree = "<group>"; };
 		D7831FC027C8C25900DBF849 /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
 		D7831FC627CA0E9500DBF849 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		D79AE9C527DD04340027FAA7 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTextView.swift; sourceTree = "<group>"; };
 		D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastInteractionView.swift; sourceTree = "<group>"; };
 		D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastInteractionModel.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */,
 				D79F991D27D51C8F00E76FBA /* LastInteractionView.swift */,
 				D79F991F27D5218A00E76FBA /* LastInteractionModel.swift */,
+				D79AE9C527DD04340027FAA7 /* NotificationHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
 				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
 				D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */,
+				D79AE9C627DD04340027FAA7 /* NotificationHandler.swift in Sources */,
 				D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

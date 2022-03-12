@@ -129,16 +129,47 @@ class CrewModel: ObservableObject {
     }
     
     func scheduleNotification(note: Note, timeInterval: TimeInterval) {
+        // choose a random identifier
+        let uuid = UUID().uuidString
+        
+        // Define the custom actions.
+        let completeAction = UNNotificationAction(identifier: "COMPLETE_ACTION",
+              title: "Mark as completed",
+              options: [])
+        let sleep1H = UNNotificationAction(identifier: "SLEEP_1_H",
+              title: "Remind me in 1h",
+              options: [])
+        let sleep24H = UNNotificationAction(identifier: "SLEEP_24_H",
+              title: "Remind me in 24h",
+              options: [])
+        let sleep3D = UNNotificationAction(identifier: "SLEEP_3_D",
+              title: "Remind me in 3 days",
+              options: [])
+        // Define the notification type
+        let notificationCategories =
+              UNNotificationCategory(identifier: "CREW_NOTIFICATION",
+              actions: [completeAction, sleep1H, sleep24H, sleep3D],
+              intentIdentifiers: [],
+              hiddenPreviewsBodyPlaceholder: "",
+              options: .customDismissAction)
+        
+        // Register the notification type.
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.setNotificationCategories([notificationCategories])
+        notificationCenter.delegate = NotificationHandler.shared
+        
         let content = UNMutableNotificationContent()
         content.title = note.contactName!
         content.body = note.text!
         content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "CREW_NOTIFICATION"
+        content.userInfo = [
+            "reminderId": uuid
+        ]
 
         // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 
-        // choose a random identifier
-        let uuid = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
 
         // add our notification request

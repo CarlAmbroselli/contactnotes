@@ -200,6 +200,7 @@ struct ReminderConfiguration: View {
         HStack {
             VStack {
                 HStack {
+                    ReminderButton(label: "10s", duration: 10, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
                     Spacer()
                     ReminderButton(label: "1 day", duration: 60*60*24, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
                     Spacer()

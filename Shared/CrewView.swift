@@ -18,6 +18,7 @@ struct CrewView: View {
     @State private var openAllNotesView = false
     @State private var openRemindersView = false
     @State private var openMatrixView = false
+    let pub = NotificationCenter.default.publisher(for: Notification.Name("COMPLETE_ACTION"))
     
     @FetchRequest(
         entity: UnreadStatus.entity(),
@@ -80,6 +81,11 @@ struct CrewView: View {
             }
             MatrixModel.shared.sync()
             await viewModel.loadPeople()
+        }
+        .onReceive(pub) { data in
+             if let content = (data.object as? UNNotificationContent){
+                 print(content.debugDescription)
+             }
         }
     }
 }
