@@ -42,110 +42,98 @@ struct PersonView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                
+        Group {
+            List {
                 LastInteractionView(person: person)
-                Spacer()
-                    .onTapGesture {
-                        editingNote = nil
-                        noteText = ""
-                    }
-                VStack(alignment: .leading) {
-                    ForEach(notes) { note in
-                        ZStack {
-                            if (editingNote?.objectID == note.objectID) {
-                                Color.gray
-                                    .opacity(0.2)
-                            }
-                            if (longPressNote?.objectID == note.objectID) {
-                                Color.gray
-                                    .opacity(0.2)
-                                    .cornerRadius(5)
-                            }
-                            VStack {
-                                if (note.timestamp != nil) {
-                                    Text(dateFormatter.string(from: note.timestamp!))
-                                        .frame(maxWidth: .infinity, alignment: .trailing)
-                                        .foregroundColor(.secondary)
-                                }
-                                if (note.text != nil) {
-                                    HStack {
-                                        Text(note.text!)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        if (editingNote?.objectID == note.objectID) {
-                                            Button(action: {
-                                                self.deleteNote(note: note)
-                                            }) {
-                                                Image(systemName: "trash.fill")
-                                                    .foregroundColor(.red)
-                                                    .font(Font.subheadline)
-                                            }
-                                            .padding(10)
-                                        }
-                                    }
-                                    Spacer()
-                                        .frame(height: 5)
-                                }
-                            }
-                            .padding(5)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                ForEach(notes) { note in
+                    ZStack {
+                        if (editingNote?.objectID == note.objectID) {
+                            Color.gray
+                                .opacity(0.2)
                         }
-                        .onTapGesture {
+                        if (longPressNote?.objectID == note.objectID) {
+                            Color.gray
+                                .opacity(0.2)
+                                .cornerRadius(5)
+                        }
+                        VStack {
+                            if (note.timestamp != nil) {
+                                Text(dateFormatter.string(from: note.timestamp!))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                    .foregroundColor(.secondary)
+                            }
+                            if (note.text != nil) {
+                                Text(note.text!)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        .padding(5)
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .swipeActions(edge: .leading) {
+                        Button {
                             editingNote = note
                             noteText = note.text ?? ""
                             longPressNote = nil
-                        }
-                        .onLongPressGesture() {
+                        } label: {
+                            Label("Edit", systemImage: "pencil")
+                        }.tint(.blue)
+                        Button {
                             self.showReminderPopover = true
                             self.longPressNote = nil
                             UIImpactFeedbackGenerator.init(style: .heavy).impactOccurred()
-                        }
-                        .simultaneousGesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({ _ in
-                            self.longPressNote = note
-                        }).onEnded({ _ in
-                            self.longPressNote = nil
-                        }))
-                        .popover(isPresented: $showReminderPopover) {
-                            ReminderPopover(note: note, scheduleNotification: viewModel.scheduleNotification, showReminderPopover: $showReminderPopover)
-                        }
+                        } label: {
+                            Label("Remind", systemImage: "alarm")
+                        }.tint(.yellow)
+                    }
+                    .swipeActions(edge: .trailing) {
+                      Button(role: .destructive, action: { deleteNote(note: note) } ) {
+                        Label("Delete", systemImage: "trash")
+                      }
+                    }
+                    .popover(isPresented: $showReminderPopover) {
+                        ReminderPopover(note: note, scheduleNotification: viewModel.scheduleNotification, showReminderPopover: $showReminderPopover)
                     }
                 }
-                HStack(alignment: .bottom, spacing: 5) {
-                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-                        if noteText.isEmpty {
-                            Text("Add note...")
-                                .foregroundColor(Color(.label))
-                                .padding(.top, 8)
-                                .padding(.leading, 4)
-                        }
-                        ExpandingTextView(text: $noteText)
+            }
+                .listStyle(PlainListStyle())
+            HStack(alignment: .bottom, spacing: 5) {
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+                    if noteText.isEmpty {
+                        Text("Add note...")
+                            .foregroundColor(Color(.label))
+                            .padding(.top, 8)
+                            .padding(.leading, 4)
                     }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 3)
-                            .stroke(Color(.systemGray5), lineWidth: 1.0)
-                    )
-                    Button {
-                        addNote(text: noteText)
-                        self.noteText = ""
-                    } label: {
-                        Image(systemName: "plus.circle")
-                            .padding(9)
-                            .foregroundColor(Color(.lightGray))
-                            .background(Color(.darkGray))
-                    }
-                    .cornerRadius(4)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 5))
+                    ExpandingTextView(text: $noteText)
                 }
-            }.rotationEffect(Angle(degrees: 180))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 3)
+                        .stroke(Color(.systemGray5), lineWidth: 1.0)
+                )
+                Button {
+                    addNote(text: noteText)
+                    self.noteText = ""
+                } label: {
+                    Image(systemName: editingNote == nil ? "plus.circle" : "checkmark.circle.fill")
+                        .padding(9)
+                        .foregroundColor(Color(.lightGray))
+                        .background(Color(.darkGray))
+                }
+                .cornerRadius(4)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 5))
+            }
+            .navigationTitle("\(person.givenName) \(person.familyName)")
+            .toolbar {
+                GroupSelector (selectionAction: { group in
+                    viewModel.updateGroupForPerson(person: person, group: group)
+                }, selectedGroup: contactGroup)
+            }
         }
         .font(Font.custom("IowanOldStyle-Roman", size: 16))
-        .rotationEffect(Angle(degrees: 180))
-        .navigationTitle("\(person.givenName) \(person.familyName)")
-        .toolbar {
-            GroupSelector (selectionAction: { group in
-                viewModel.updateGroupForPerson(person: person, group: group)
-            }, selectedGroup: contactGroup)
-        }
     }
     
     private func deleteNote(note: Note) {
@@ -181,7 +169,7 @@ struct PersonView: View {
         }
     }
 }
-    
+
 struct ReminderPopover: View {
     let note: Note
     let scheduleNotification: (Note, TimeInterval) -> Void

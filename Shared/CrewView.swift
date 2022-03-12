@@ -78,7 +78,6 @@ struct CrewView: View {
                     print(error.localizedDescription)
                 }
             }
-            print(unreads)
             MatrixModel.shared.sync()
             await viewModel.loadPeople()
         }
