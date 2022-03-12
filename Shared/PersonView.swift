@@ -171,7 +171,7 @@ struct PersonView: View {
 
 struct ReminderButton: View {
     let label: String
-    let duration: Int
+    let duration: TimeInterval
     let note: Note
     let scheduleNotification: (Note, TimeInterval) -> Void
     @Binding var showReminderPopover: Bool
@@ -179,10 +179,11 @@ struct ReminderButton: View {
     var body: some View {
         Button(label) {
             withAnimation {
-                scheduleNotification(note, 60*60)
+                scheduleNotification(note, duration)
                 showReminderPopover = false
             }
         }
+        .buttonStyle(BorderlessButtonStyle())
         .padding(10)
         .background(Color.blue.opacity(0.1))
         .cornerRadius(4)
@@ -228,8 +229,6 @@ struct ReminderConfiguration: View {
                     }
                 }
             }
-            
-            
             Button  {
                 withAnimation {
                     showReminderPopover = false
@@ -237,6 +236,7 @@ struct ReminderConfiguration: View {
             } label: {
                 Image(systemName: "xmark.circle.fill").foregroundColor(.red)
             }
+            .buttonStyle(BorderlessButtonStyle())
             .padding(5)
         }
     }
