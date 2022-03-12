@@ -19,6 +19,12 @@ struct CrewView: View {
     @State private var openRemindersView = false
     @State private var openMatrixView = false
     
+    @FetchRequest(
+        entity: UnreadStatus.entity(),
+        sortDescriptors: []
+    )
+    private var unreads: FetchedResults<UnreadStatus>
+    
     init(viewModel: CrewModel) {
         self.viewModel = viewModel
         UIScrollView.appearance().keyboardDismissMode = .onDrag
@@ -49,7 +55,7 @@ struct CrewView: View {
                         .padding([.leading, .trailing],  10)
                 }.padding([.leading, .top, .trailing], 10)
                 
-                ContactList(people: viewModel.people, searchText: self.searchText, viewModel: viewModel, viewContext: viewContext)
+                ContactList(people: viewModel.people, searchText: self.searchText, viewModel: viewModel, viewContext: viewContext, unreads: unreads)
                 
             }
             .navigationBarHidden(true)
@@ -72,6 +78,7 @@ struct CrewView: View {
                     print(error.localizedDescription)
                 }
             }
+            print(unreads)
             MatrixModel.shared.sync()
             await viewModel.loadPeople()
         }
@@ -135,6 +142,7 @@ struct ContactList: View {
     var searchText: String
     var viewModel: CrewModel
     var viewContext: NSManagedObjectContext
+    var unreads: FetchedResults<UnreadStatus>
     
     func filteredPeople(key: ContactGroup) -> [CNContact] {
         return people[key]!.filter({ contact in
@@ -142,7 +150,21 @@ struct ContactList: View {
                 return true
             }
             return contact.fullName.lowercased().contains(searchText.lowercased())
-        })
+        }).sorted { a, b in
+            if (unreads.contains(where: { element in
+                element.contactIdentifier == a.identifier
+            })) {
+                return true
+            } else if (unreads.contains(where: { element in
+                element.contactIdentifier == b.identifier
+            })) {
+                return false
+            } else if (a.fullName < b.fullName) {
+                return true
+            } else {
+                return false
+            }
+        }
     }
     
     var body: some View {
@@ -151,9 +173,12 @@ struct ContactList: View {
                 if (filteredPeople(key: key).count > 0) {
                     Section(header: Text(key.rawValue)) {
                         ForEach(filteredPeople(key: key), id: \.identifier) { person in
+                            let unreads = unreads.filter({ element in
+                                element.contactIdentifier == person.identifier
+                            })
                             NavigationLink(destination: PersonView(showPerson: person, context: viewContext , model: viewModel)) {
                                 HStack{
-                                    Image(systemName: "circle.fill").foregroundColor(Color.blue).font(Font.system(size:8))
+                                    Image(systemName: "circle.fill").foregroundColor(Color.blue.opacity(unreads.count > 0 ? 1.0 : 0.0)).font(Font.system(size:8))
                                         .padding(.leading, 5)
                                         .padding(.trailing, -3)
                                     ContactView(contact: person)
@@ -161,7 +186,18 @@ struct ContactList: View {
                             }
                             .swipeActions(edge: .leading) {
                                 Button {
-                                    print("Awesome!")
+                                    withAnimation {
+                                        if (unreads.count > 0) {
+                                            unreads.forEach { unread in
+                                                viewContext.delete(unread)
+                                                try? viewContext.save()
+                                            }
+                                        } else {
+                                            let newUnread = UnreadStatus(context: viewContext)
+                                            newUnread.contactIdentifier = person.identifier
+                                            try? viewContext.save()
+                                        }
+                                    }
                                 } label: {
                                     Label("Mark", systemImage: "envelope.badge.fill")
                                 }

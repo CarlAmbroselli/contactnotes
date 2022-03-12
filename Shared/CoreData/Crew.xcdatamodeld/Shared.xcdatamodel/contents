@@ -14,8 +14,12 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="linkedNote" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="reminder" inverseEntity="Note"/>
     </entity>
+    <entity name="UnreadStatus" representedClassName="UnreadStatus" syncable="YES" codeGenerationType="class">
+        <attribute name="contactIdentifier" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Note" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="Reminder" positionX="-63" positionY="9" width="128" height="104"/>
+        <element name="UnreadStatus" positionX="-54" positionY="45" width="128" height="44"/>
     </elements>
 </model>
