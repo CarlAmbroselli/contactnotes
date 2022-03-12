@@ -16,8 +16,8 @@ struct PersonView: View {
     }
     var person: CNContact
     var viewModel: CrewModel
+    @State var reminderNote: Note?
     @State var editingNote: Note?
-    @State var longPressNote: Note?
     @State private var showReminderPopover = false
     
     private var viewContext: NSManagedObjectContext
@@ -44,28 +44,27 @@ struct PersonView: View {
     var body: some View {
         Group {
             List {
-//                LastInteractionView(person: person)
-//                    .listRowSeparator(.hidden)
-//                    .listRowInsets(EdgeInsets())
+                //                LastInteractionView(person: person)
+                //                    .listRowSeparator(.hidden)
+                //                    .listRowInsets(EdgeInsets())
                 ForEach(notes) { note in
                     ZStack {
                         if (editingNote?.objectID == note.objectID) {
                             Color.gray
                                 .opacity(0.2)
                         }
-                        if (longPressNote?.objectID == note.objectID) {
-                            Color.gray
-                                .opacity(0.2)
-                                .cornerRadius(5)
-                        }
                         VStack {
                             if (note.timestamp != nil) {
                                 Text(dateFormatter.string(from: note.timestamp!))
                                     .frame(maxWidth: .infinity, alignment: .trailing)
                                     .foregroundColor(.secondary)
+                                    .padding(.trailing, 3)
                             }
                             if (note.text != nil) {
                                 Text(note.text!)
+                                    .padding(.leading, 6)
+                                    .opacity(0.75)
+                                    .lineSpacing(1.5)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
@@ -77,29 +76,29 @@ struct PersonView: View {
                         Button {
                             editingNote = note
                             noteText = note.text ?? ""
-                            longPressNote = nil
                         } label: {
-                            Label("Edit", systemImage: "pencil.circle")
+                            Image(systemName: "pencil.circle")
                         }.tint(.blue)
                         Button {
-                            self.showReminderPopover = true
-                            self.longPressNote = nil
-                            UIImpactFeedbackGenerator.init(style: .heavy).impactOccurred()
+                            self.reminderNote = note
+                            withAnimation {
+                                self.showReminderPopover = true
+                            }
                         } label: {
-                            Label("Remind", systemImage: "alarm")
+                            Image(systemName: "alarm")
                         }.tint(.yellow)
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                      Button(role: .destructive, action: { deleteNote(note: note) } ) {
-                        Label("Delete", systemImage: "trash")
-                      }
+                        Button(role: .destructive, action: { deleteNote(note: note) } ) {
+                            Label("Delete", systemImage: "trash")
+                        }
                     }
-                    .popover(isPresented: $showReminderPopover) {
-                        ReminderPopover(note: note, scheduleNotification: viewModel.scheduleNotification, showReminderPopover: $showReminderPopover)
+                    if (showReminderPopover && reminderNote?.objectID == note.objectID) {
+                        ReminderConfiguration(note: note, scheduleNotification: viewModel.scheduleNotification, showReminderPopover: $showReminderPopover)
                     }
                 }
             }
-                .listStyle(PlainListStyle())
+            .listStyle(PlainListStyle())
             HStack(alignment: .bottom, spacing: 5) {
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                     if noteText.isEmpty {
@@ -170,79 +169,76 @@ struct PersonView: View {
     }
 }
 
-struct ReminderPopover: View {
+struct ReminderButton: View {
+    let label: String
+    let duration: Int
+    let note: Note
+    let scheduleNotification: (Note, TimeInterval) -> Void
+    @Binding var showReminderPopover: Bool
+    
+    var body: some View {
+        Button(label) {
+            withAnimation {
+                scheduleNotification(note, 60*60)
+                showReminderPopover = false
+            }
+        }
+        .padding(10)
+        .background(Color.blue.opacity(0.1))
+        .cornerRadius(4)
+    }
+}
+
+struct ReminderConfiguration: View {
     let note: Note
     let scheduleNotification: (Note, TimeInterval) -> Void
     @Binding var showReminderPopover: Bool
     @State var reminderDate = Date()
     
     var body: some View {
-        VStack {
-            Group{
-                Text(note.text!)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding([.bottom], 20)
-                Button("Remind in 1 hour") {
-                    scheduleNotification(note, 60*60)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-                Spacer().frame(height: 15)
-                Button("Remind in 1 day") {
-                    scheduleNotification(note, 60*60*24)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-                Spacer().frame(height: 15)
-                Button("Remind in 3 days") {
-                    scheduleNotification(note, 60*60*24*3)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-            }
-            Group {
-                Spacer().frame(height: 15)
-                Button("Remind in 7 days") {
-                    scheduleNotification(note, 60*60*24*7)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-                Spacer().frame(height: 15)
-                Button("Remind in 30 days") {
-                    scheduleNotification(note, 60*60*24*30)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-                Spacer().frame(height: 15)
-                Button("Remind in 6 months") {
-                    scheduleNotification(note, 60*60*24*30*6)
-                    showReminderPopover = false
-                }.padding(10).background(Color.blue.opacity(0.1))
-                    .cornerRadius(4)
-                Spacer().frame(height: 15)
-                
+        HStack {
+            VStack {
                 HStack {
-                    DatePicker(
-                        "",
-                        selection: $reminderDate,
-                        displayedComponents: [.date]
-                    ).labelsHidden()
-                    
-                    let days = Calendar.current.dateComponents([.day], from:Calendar.current.startOfDay(for: Date()) , to: Calendar.current.startOfDay(for: reminderDate)).day!
-                    if (days > 0) {
-                        Button("Remind in \(days) days") {
-                            scheduleNotification(note, reminderDate.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate)
-                            showReminderPopover = false
-                        }
-                        .padding([.top, .bottom], 7)
-                        .padding([.leading, .trailing], 10)
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(6)
+                    Spacer()
+                    ReminderButton(label: "1 day", duration: 60*60*24, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
+                    Spacer()
+                    ReminderButton(label: "7 days", duration: 60*60*24*7, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
+                    Spacer()
+                    ReminderButton(label: "30 days", duration: 60*60*24*30, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
+                    Spacer()
+                    ReminderButton(label: "6 months", duration: 60*60*24*30*6, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
+                    if (showReminderPopover) {
+                        DatePicker(
+                            "",
+                            selection: $reminderDate,
+                            displayedComponents: [.date]
+                        )
+                            .labelsHidden()
+                            .onChange(of: reminderDate) { value in
+                                withAnimation {
+                                    scheduleNotification(note, reminderDate.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate)
+                                    showReminderPopover = false
+                                }
+                            }
+                        Spacer()
                     }
-                    
                 }
             }
-        }.padding(10)
+            
+            
+            Button  {
+                withAnimation {
+                    showReminderPopover = false
+                }
+            } label: {
+                Image(systemName: "xmark.circle.fill").foregroundColor(.red)
+            }
+            .padding(5)
+        }
     }
 }
 

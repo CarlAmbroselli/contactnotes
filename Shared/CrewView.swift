@@ -111,6 +111,7 @@ struct MenuNavigationView: View {
 struct ContactView: View {
     var contact: CNContact
     let pictureSize = 40.0
+    let isUnread: Bool
     var body: some View {
         HStack {
             ZStack {
@@ -131,7 +132,7 @@ struct ContactView: View {
             .background(Color(.lightGray))
             .clipShape(Circle())
 
-            Text("\(contact.givenName) \(contact.familyName)").lineLimit(1)
+            Text(contact.fullName).fontWeight(isUnread ? .semibold : .regular).lineLimit(1)
         }
     }
 }
@@ -180,7 +181,7 @@ struct ContactList: View {
                                     Image(systemName: "circle.fill").foregroundColor(Color.blue.opacity(unreads.count > 0 ? 1.0 : 0.0)).font(Font.system(size:8))
                                         .padding(.leading, 5)
                                         .padding(.trailing, -3)
-                                    ContactView(contact: person)
+                                    ContactView(contact: person, isUnread: unreads.count > 0)
                                 }
                             }
                             .swipeActions(edge: .leading) {
