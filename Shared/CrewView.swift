@@ -18,7 +18,6 @@ struct CrewView: View {
     @State private var openAllNotesView = false
     @State private var openRemindersView = false
     @State private var openMatrixView = false
-    let pub = NotificationCenter.default.publisher(for: Notification.Name("COMPLETE_ACTION"))
     
     @FetchRequest(
         entity: UnreadStatus.entity(),
@@ -32,60 +31,58 @@ struct CrewView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    ContactSearch(searchText: $searchText)
+        VStack {
+            StatusModelView()
+            NavigationView {
+                VStack {
+                    HStack {
+                        ContactSearch(searchText: $searchText)
+                        
+                        Menu(content: {
+                            Button("All Notes") {
+                                self.openAllNotesView = true
+                            }
+                            Button("Reminders") {
+                                self.openRemindersView = true
+                            }
+                            Button("Dropbox") {
+                                self.openDropboxView = true
+                            }
+                            Button("Matrix") {
+                                self.openMatrixView = true
+                            }
+                        }, label: {
+                            Image(systemName: "gear")
+                        })
+                            .padding([.leading, .trailing],  10)
+                    }.padding([.leading, .top, .trailing], 10)
                     
-                    Menu(content: {
-                        Button("All Notes") {
-                            self.openAllNotesView = true
-                        }
-                        Button("Reminders") {
-                            self.openRemindersView = true
-                        }
-                        Button("Dropbox") {
-                            self.openDropboxView = true
-                        }
-                        Button("Matrix") {
-                            self.openMatrixView = true
-                        }
-                    }, label: {
-                        Image(systemName: "gear")
-                    })
-                        .padding([.leading, .trailing],  10)
-                }.padding([.leading, .top, .trailing], 10)
-                
-                ContactList(people: viewModel.people, searchText: self.searchText, viewModel: viewModel, viewContext: viewContext, unreads: unreads)
-                
-            }
-            .navigationBarHidden(true)
-            .navigationBarTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .background(
-                MenuNavigationView(
-                    viewModel: viewModel,
-                    openDropboxView: $openDropboxView,
-                    openAllNotesView: $openAllNotesView,
-                    openRemindersView: $openRemindersView,
-                    openMatrixView: $openMatrixView
-                )
-            )
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .task {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
-                if let error = error {
-                    print(error.localizedDescription)
+                    ContactList(people: viewModel.people, searchText: self.searchText, viewModel: viewModel, viewContext: viewContext, unreads: unreads)
+                    
                 }
+                .navigationBarHidden(true)
+                .navigationBarTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+                .background(
+                    MenuNavigationView(
+                        viewModel: viewModel,
+                        openDropboxView: $openDropboxView,
+                        openAllNotesView: $openAllNotesView,
+                        openRemindersView: $openRemindersView,
+                        openMatrixView: $openMatrixView
+                    )
+                )
             }
-            MatrixModel.shared.sync()
-            await viewModel.loadPeople()
-        }
-        .onReceive(pub) { data in
-             if let content = (data.object as? UNNotificationContent){
-                 print(content.debugDescription)
-             }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .task {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
+                    if let error = error {
+                        StatusModel.shared.show(message: "Failed setting up push notification: \(error.localizedDescription)", level: .ERROR)
+                    }
+                }
+                MatrixModel.shared.sync()
+                await viewModel.loadPeople()
+            }
         }
     }
 }
@@ -137,7 +134,7 @@ struct ContactView: View {
             .frame(width: pictureSize, height: pictureSize, alignment: .center)
             .background(Color(.lightGray))
             .clipShape(Circle())
-
+            
             Text(contact.fullName).fontWeight(isUnread ? .semibold : .regular).lineLimit(1)
         }
     }

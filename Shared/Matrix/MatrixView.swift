@@ -28,15 +28,10 @@ struct MatrixView: View {
                 }
                 .padding(10)
             } else {
+                Spacer()
                 Text("Already authenticated.")
-                
-                
-                Button {
-//                    model.printRoomsWithUser(name: "0xca")
-                } label: {
-                    Text("Print rooms with 0xca")
-                }
-                
+                Text("Loaded \(model.roomCount) rooms.")
+                Spacer()
                 
                 Button {
                     model.logout()

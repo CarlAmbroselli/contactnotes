@@ -15,7 +15,7 @@ enum ContactGroup: String, CaseIterable, Comparable {
     case YEARLY = "yearly"
     
     private var sortOrder: Int {
-            switch self {
+        switch self {
             case .WEEKS_3:
                     return 0
             case .MONTHS_2:

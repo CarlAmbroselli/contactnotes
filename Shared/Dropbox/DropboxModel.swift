@@ -25,7 +25,6 @@ class DropboxModel {
     @Published var syncStatus = "Not synced yet"
     
     func updateDropboxState(resultHandler: @escaping (Bool, String) -> Void) {
-        print("updateDropboxState")
         guard let client = DropboxClientsManager.authorizedClient else {
             print("failed to init client!")
             state = "Failed to initialize client"
@@ -53,8 +52,8 @@ class DropboxModel {
 
             do {
                 guard let notes = result.finalResult else {
-                  print("Failed to fetch notes")
-                  return
+                    StatusModel.shared.show(message: "Failed to fetch notes", level: .ERROR)
+                    return
                 }
                 
                 let fields = ["timestamp", "contactId", "contactName", "text"]
@@ -66,7 +65,7 @@ class DropboxModel {
                 let result = try writer.data()
                 
                 guard let client = DropboxClientsManager.authorizedClient else {
-                    print("client not initialized")
+                    StatusModel.shared.show(message: "Dropbox client not initialized", level: .ERROR)
                     return
                 }
                 
@@ -109,7 +108,7 @@ class DropboxModel {
                     }
                 
             } catch let error {
-                print("Error :(", error)
+                StatusModel.shared.show(message: "Error uploading notes: \(error.localizedDescription)", level: .ERROR)
             }
             
         }
@@ -118,7 +117,7 @@ class DropboxModel {
             let backgroundContext = PersistenceController.shared.container.newBackgroundContext()
             try backgroundContext.execute(asyncFetch)
         } catch let error {
-            print("Error!!", error)
+            StatusModel.shared.show(message: "Error executing fetch: \(error.localizedDescription)", level: .ERROR)
         }
         
     }

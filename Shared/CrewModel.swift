@@ -15,14 +15,15 @@ class CrewModel: ObservableObject {
     
     static var dropboxViewModel = DropboxViewModel()
     
-    func loadPeople() async {
+    func loadPeople() async {        
         let access = (try? await requestAccess()) ?? false
         if (access) {
             let keys = [
                 CNContactGivenNameKey as CNKeyDescriptor,
                 CNContactFamilyNameKey as CNKeyDescriptor,
                 CNContactImageDataKey as CNKeyDescriptor,
-                CNContactIdentifierKey as CNKeyDescriptor
+                CNContactIdentifierKey as CNKeyDescriptor,
+                CNContactSocialProfilesKey as CNKeyDescriptor
             ]
             var seenContacts: Set<String> = []
             var loadedPeople = [ContactGroup: [CNContact]]()
@@ -106,6 +107,34 @@ class CrewModel: ObservableObject {
                 contactGroup.rawValue == groups.first!.name
             }!
         }
+    }
+    
+    func updateMatrixRoomForPerson(person: CNContact, room: String) {
+        guard let mutableContact = person.mutableCopy() as? CNMutableContact else { return }
+        var socialProfiles = mutableContact.socialProfiles.filter { profile in
+            guard let label = profile.label else {
+                return true
+            }
+            if (label == "Matrix") {
+                // removing existing matrix profiles
+                return false
+            } else {
+                return true
+            }
+        }
+        
+        let matrixProfile = CNLabeledValue(label: "Matrix", value: CNSocialProfile(urlString: room, username: room, userIdentifier: room, service: "Matrix"))
+        socialProfiles.append(matrixProfile)
+        mutableContact.socialProfiles = socialProfiles
+        
+        do {
+            try updateContact(mutableContact)
+        } catch {
+            StatusModel.shared.show(message: "Error saving contact! \(error)", level: .ERROR)
+        }
+        Task.init(priority: .medium, operation: {
+            await loadPeople()
+        })
     }
     
     func updateGroupForPerson(person: CNContact, group targetGroup: ContactGroup) {
@@ -200,5 +229,19 @@ class CrewModel: ObservableObject {
 extension CNContact {
     var fullName: String {
         return "\(self.givenName) \(self.familyName)".trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var matrixRoom: String? {
+        let rooms = self.socialProfiles.filter { profile in
+            guard let label = profile.label else {
+                return false
+            }
+            return label == "Matrix"
+        }
+        if (rooms.count > 0) {
+            return rooms.first!.value.username
+        } else {
+            return nil
+        }
     }
 }

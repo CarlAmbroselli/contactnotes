@@ -15,7 +15,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response:
         UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print("Notification received in background")
+        StatusModel.shared.show(message: "Notification received in background", level: .SUCCESS)
         rescheduleNotification(notification: response)
         
 //        let notiName = Notification.Name(response.notification.request.identifier)
@@ -26,8 +26,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     /** Handle notification when the app is in foreground */
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        print("Notification received in foreground")
+        StatusModel.shared.show(message: "Notification received in foreground", level: .INFO)
         
 //        let notiName = Notification.Name( notification.request.identifier )
 //        NotificationCenter.default.post(name:notiName , object: notification.request.content)

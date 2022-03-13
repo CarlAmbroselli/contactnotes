@@ -19,6 +19,9 @@ struct PersonView: View {
     @State var reminderNote: Note?
     @State var editingNote: Note?
     @State private var showReminderPopover = false
+    @State private var lastMessageDate: Date?
+    @State private var matrixRoomTextInput: String = ""
+    @State private var userWantsToChangeMatrixRoom: Bool = false
     
     private var viewContext: NSManagedObjectContext
     private var fetchRequest: FetchRequest<Note>
@@ -26,7 +29,6 @@ struct PersonView: View {
     private var notes: FetchedResults<Note> {
         fetchRequest.wrappedValue
     }
-    
     
     init(showPerson: CNContact, context: NSManagedObjectContext, model: CrewModel) {
         fetchRequest = FetchRequest<Note>(
@@ -47,6 +49,41 @@ struct PersonView: View {
                 //                LastInteractionView(person: person)
                 //                    .listRowSeparator(.hidden)
                 //                    .listRowInsets(EdgeInsets())
+                if (lastMessageDate != nil && !userWantsToChangeMatrixRoom) {
+                    HStack {
+                        Spacer()
+                        Button("Last message: \(self.formatRelativeTimestamp(date: lastMessageDate!))") {
+                            self.userWantsToChangeMatrixRoom = true
+                        }
+                        .padding(10)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(4)
+                        Spacer()
+                    }
+                } else if (person.matrixRoom == nil || self.userWantsToChangeMatrixRoom) {
+                    ZStack(alignment: .trailing) {
+                        TextField(
+                            "Enter matrix room: !xxxx:matrix.carl-ambroselli.de",
+                            text: $matrixRoomTextInput
+                        )
+                            .disableAutocorrection(true)
+                            .padding(.trailing, 35)
+                            .padding(.leading, 10)
+                        if (!self.matrixRoomTextInput.isEmpty) {
+                            Button(action: {
+                                self.userWantsToChangeMatrixRoom = false
+                                viewModel.updateMatrixRoomForPerson(person: person, room: self.matrixRoomTextInput)
+                                self.updateLastMessageForRoom(room: self.matrixRoomTextInput)
+                            }) {
+                                Image(systemName: "arrow.up.and.person.rectangle.portrait")
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.trailing, 5)
+                        }
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                }
                 ForEach(notes) { note in
                     ZStack {
                         if (editingNote?.objectID == note.objectID) {
@@ -133,6 +170,34 @@ struct PersonView: View {
             }
         }
         .font(Font.custom("IowanOldStyle-Roman", size: 16))
+        .task {
+            guard let room = person.matrixRoom else {
+                return
+            }
+            self.updateLastMessageForRoom(room: room)
+        }
+    }
+    
+    private func updateLastMessageForRoom(room: String, retryCount: Int = 0, retryMax: Int = 30) {
+        let lastMessageDate = MatrixModel.shared.lastEventDateForUser(roomId: room)
+        if (lastMessageDate == nil) {
+            if (retryCount < retryMax) {
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                    self.updateLastMessageForRoom(room: room, retryCount: retryCount+1, retryMax: retryMax)
+                }
+            } else {
+                StatusModel.shared.show(message: "Failed to load message summary for \(person.fullName).", level: .ERROR)
+            }
+        } else {
+            self.lastMessageDate = lastMessageDate
+        }
+            
+    }
+    
+    private func formatRelativeTimestamp(date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .named
+        return formatter.localizedString(fromTimeInterval: date.timeIntervalSince(Date.now))
     }
     
     private func deleteNote(note: Note) {
