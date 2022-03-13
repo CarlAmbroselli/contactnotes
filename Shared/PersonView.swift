@@ -92,9 +92,13 @@ struct PersonView: View {
                             HStack {
                                 let nextReminder = self.getNextReminder(note: note)
                                 if (nextReminder != nil) {
-                                    Text("⏱ \(dateFormatter.string(from: nextReminder!.timestamp!)) |")
+                                    Image(systemName: "alarm.fill")
                                         .foregroundColor(.secondary)
-                                        .padding(.trailing, 3)
+                                        .font(.footnote)
+                                        .padding(.trailing, -5)
+                                    Text("\(dateFormatter.string(from: nextReminder!.timestamp!)) |")
+                                        .foregroundColor(.secondary)
+                                        .padding(.trailing, -5)
                                 }
                                 if (note.timestamp != nil) {
                                     Text(dateFormatter.string(from: note.timestamp!))
