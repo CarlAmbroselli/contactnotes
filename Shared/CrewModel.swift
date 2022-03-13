@@ -209,6 +209,7 @@ class CrewModel: ObservableObject {
             reminder.contactName = note.contactName
             reminder.timestamp = Date().addingTimeInterval(timeInterval)
             reminder.identifier = uuid
+            reminder.linkedNote = note
             try? viewContext!.save()
         }
         

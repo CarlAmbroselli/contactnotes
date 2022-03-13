@@ -89,12 +89,20 @@ struct PersonView: View {
                                 .opacity(0.2)
                         }
                         VStack {
-                            if (note.timestamp != nil) {
-                                Text(dateFormatter.string(from: note.timestamp!))
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                    .foregroundColor(.secondary)
-                                    .padding(.trailing, 3)
+                            HStack {
+                                let nextReminder = self.getNextReminder(note: note)
+                                if (nextReminder != nil) {
+                                    Text("⏱ \(dateFormatter.string(from: nextReminder!.timestamp!)) |")
+                                        .foregroundColor(.secondary)
+                                        .padding(.trailing, 3)
+                                }
+                                if (note.timestamp != nil) {
+                                    Text(dateFormatter.string(from: note.timestamp!))
+                                        .foregroundColor(.secondary)
+                                        .padding(.trailing, 3)
+                                }
                             }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                             if (note.text != nil) {
                                 Text(note.text!)
                                     .padding(.leading, 6)
@@ -173,6 +181,22 @@ struct PersonView: View {
                 return
             }
             self.updateLastMessageForRoom(room: room)
+        }
+    }
+    
+    private func getNextReminder(note: Note) -> Reminder? {
+        if (note.reminders != nil && note.reminders!.count > 0) {
+            guard let sortedReminders = ((Array(note.reminders!) as? [Reminder])?.sorted  { a, b in
+                if (a.timestamp == nil || b.timestamp == nil) {
+                    return false
+                }
+                return a.timestamp! < b.timestamp!
+            }) else {
+                return nil
+            }
+            return sortedReminders.first
+        } else {
+            return nil
         }
     }
     
