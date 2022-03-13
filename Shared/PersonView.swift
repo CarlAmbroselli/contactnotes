@@ -54,9 +54,9 @@ struct PersonView: View {
                     }
                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .padding(10)
-                    .background(Color.blue)
+                    .background(Color.blue.opacity(colorScheme == .dark ? 0.9 : 0.1))
                     .cornerRadius(4)
-                    .opacity(colorScheme == .dark ? 0.9 : 0.1)
+                    .opacity(0.9)
                     Spacer()
                 }.padding(.top, 10)
             } else if (person.matrixRoom == nil || self.userWantsToChangeMatrixRoom) {
