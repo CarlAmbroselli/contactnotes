@@ -212,7 +212,7 @@ class CrewModel: ObservableObject {
             try? viewContext!.save()
         }
         
-        StatusModel.shared.show(message: "Will remind in \((timeInterval + 10).relativeTimeIntervalDescription)", level: .SUCCESS)
+        StatusModel.shared.show(message: "Will remind \((timeInterval + 1000).relativeTimeIntervalDescription)", level: .SUCCESS)
     }
     
     func deleteReminder(_ reminder: Reminder) {
