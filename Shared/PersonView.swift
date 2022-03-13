@@ -10,6 +10,7 @@ import Contacts
 import CoreData
 
 struct PersonView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @State var noteText: String = ""
     private var contactGroup: ContactGroup {
         viewModel.contactGroupOfPerson(person)
@@ -44,46 +45,43 @@ struct PersonView: View {
     }
     
     var body: some View {
-        Group {
-            List {
-                //                LastInteractionView(person: person)
-                //                    .listRowSeparator(.hidden)
-                //                    .listRowInsets(EdgeInsets())
-                if (lastMessageDate != nil && !userWantsToChangeMatrixRoom) {
-                    HStack {
-                        Spacer()
-                        Button("Last message: \(self.formatRelativeTimestamp(date: lastMessageDate!))") {
-                            self.userWantsToChangeMatrixRoom = true
-                        }
-                        .padding(10)
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(4)
-                        Spacer()
+        VStack {
+            if (lastMessageDate != nil && !userWantsToChangeMatrixRoom) {
+                HStack {
+                    Spacer()
+                    Button("Last message: \(self.formatRelativeTimestamp(date: lastMessageDate!))") {
+                        self.userWantsToChangeMatrixRoom = true
                     }
-                } else if (person.matrixRoom == nil || self.userWantsToChangeMatrixRoom) {
-                    ZStack(alignment: .trailing) {
-                        TextField(
-                            "Enter matrix room: !xxxx:matrix.carl-ambroselli.de",
-                            text: $matrixRoomTextInput
-                        )
-                            .disableAutocorrection(true)
-                            .padding(.trailing, 35)
-                            .padding(.leading, 10)
-                        if (!self.matrixRoomTextInput.isEmpty) {
-                            Button(action: {
-                                self.userWantsToChangeMatrixRoom = false
-                                viewModel.updateMatrixRoomForPerson(person: person, room: self.matrixRoomTextInput)
-                                self.updateLastMessageForRoom(room: self.matrixRoomTextInput)
-                            }) {
-                                Image(systemName: "arrow.up.and.person.rectangle.portrait")
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding(.trailing, 5)
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    .padding(10)
+                    .background(Color.blue)
+                    .cornerRadius(4)
+                    .opacity(colorScheme == .dark ? 0.9 : 0.1)
+                    Spacer()
+                }.padding(.top, 10)
+            } else if (person.matrixRoom == nil || self.userWantsToChangeMatrixRoom) {
+                ZStack(alignment: .trailing) {
+                    TextField(
+                        "Enter matrix room: !xxxx:matrix.carl-ambroselli.de",
+                        text: $matrixRoomTextInput
+                    )
+                        .disableAutocorrection(true)
+                        .padding(.trailing, 45)
+                        .padding(.leading, 10)
+                    if (!self.matrixRoomTextInput.isEmpty) {
+                        Button(action: {
+                            self.userWantsToChangeMatrixRoom = false
+                            viewModel.updateMatrixRoomForPerson(person: person, room: self.matrixRoomTextInput)
+                            self.updateLastMessageForRoom(room: self.matrixRoomTextInput)
+                        }) {
+                            Image(systemName: "arrow.up.and.person.rectangle.portrait")
+                                .foregroundColor(.secondary)
                         }
+                        .padding(.trailing, 15)
                     }
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
                 }
+            }
+            List {
                 ForEach(notes) { note in
                     ZStack {
                         if (editingNote?.objectID == note.objectID) {
@@ -100,7 +98,7 @@ struct PersonView: View {
                             if (note.text != nil) {
                                 Text(note.text!)
                                     .padding(.leading, 6)
-                                    .opacity(0.75)
+                                    .opacity(colorScheme == .dark ? 0.85 : 0.75)
                                     .lineSpacing(1.5)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
