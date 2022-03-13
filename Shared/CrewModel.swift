@@ -196,9 +196,7 @@ class CrewModel: ObservableObject {
             "reminderId": uuid
         ]
 
-        // show this notification five seconds from now
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-
         let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
 
         // add our notification request
@@ -213,6 +211,8 @@ class CrewModel: ObservableObject {
             reminder.identifier = uuid
             try? viewContext!.save()
         }
+        
+        StatusModel.shared.show(message: "Will remind in \((timeInterval + 10).relativeTimeIntervalDescription)", level: .SUCCESS)
     }
     
     func deleteReminder(_ reminder: Reminder) {
@@ -243,5 +243,21 @@ extension CNContact {
         } else {
             return nil
         }
+    }
+}
+
+extension Date {
+    var relativeTimeDescriptionSinceNow: String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .named
+        return formatter.localizedString(fromTimeInterval: self.timeIntervalSince(Date.now))
+    }
+}
+
+extension TimeInterval {
+    var relativeTimeIntervalDescription: String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .named
+        return formatter.localizedString(fromTimeInterval: self)
     }
 }

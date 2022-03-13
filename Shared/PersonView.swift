@@ -49,7 +49,7 @@ struct PersonView: View {
             if (lastMessageDate != nil && !userWantsToChangeMatrixRoom) {
                 HStack {
                     Spacer()
-                    Button("Last message: \(self.formatRelativeTimestamp(date: lastMessageDate!))") {
+                    Button("Last message: \(lastMessageDate!.relativeTimeDescriptionSinceNow)") {
                         self.userWantsToChangeMatrixRoom = true
                     }
                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -189,13 +189,6 @@ struct PersonView: View {
         } else {
             self.lastMessageDate = lastMessageDate
         }
-            
-    }
-    
-    private func formatRelativeTimestamp(date: Date) -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.dateTimeStyle = .named
-        return formatter.localizedString(fromTimeInterval: date.timeIntervalSince(Date.now))
     }
     
     private func deleteNote(note: Note) {
@@ -232,27 +225,6 @@ struct PersonView: View {
     }
 }
 
-struct ReminderButton: View {
-    let label: String
-    let duration: TimeInterval
-    let note: Note
-    let scheduleNotification: (Note, TimeInterval) -> Void
-    @Binding var showReminderPopover: Bool
-    
-    var body: some View {
-        Button(label) {
-            withAnimation {
-                scheduleNotification(note, duration)
-                showReminderPopover = false
-            }
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .padding(10)
-        .background(Color.blue.opacity(0.1))
-        .cornerRadius(4)
-    }
-}
-
 struct ReminderConfiguration: View {
     let note: Note
     let scheduleNotification: (Note, TimeInterval) -> Void
@@ -261,36 +233,21 @@ struct ReminderConfiguration: View {
     
     var body: some View {
         HStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    ReminderButton(label: "1 day", duration: 60*60*24, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
-                    Spacer()
-                    ReminderButton(label: "7 days", duration: 60*60*24*7, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
-                    Spacer()
-                    ReminderButton(label: "30 days", duration: 60*60*24*30, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
-                    Spacer()
-                    ReminderButton(label: "6 months", duration: 60*60*24*30*6, note: note, scheduleNotification: scheduleNotification, showReminderPopover: $showReminderPopover)
-                    Spacer()
-                }
-                HStack {
-                    Spacer()
-                    if (showReminderPopover) {
-                        DatePicker(
-                            "",
-                            selection: $reminderDate,
-                            displayedComponents: [.date]
-                        )
-                            .labelsHidden()
-                            .onChange(of: reminderDate) { value in
-                                withAnimation {
-                                    scheduleNotification(note, reminderDate.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate)
-                                    showReminderPopover = false
-                                }
-                            }
-                        Spacer()
+            Spacer()
+            if (showReminderPopover) {
+                DatePicker(
+                    "",
+                    selection: $reminderDate,
+                    displayedComponents: [.date]
+                )
+                    .labelsHidden()
+                    .onChange(of: reminderDate) { value in
+                        withAnimation {
+                            scheduleNotification(note, reminderDate.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate)
+                            showReminderPopover = false
+                        }
                     }
-                }
+                Spacer()
             }
             Button  {
                 withAnimation {
