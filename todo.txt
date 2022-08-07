@@ -1,0 +1,15 @@
+# ToDo
+
+- intro screen explaining no data leaves phone
+	- also include information about swipe actions
+        - and concept about "x weeks buckets" (tell that it syncs back to phone)
+        - matrix integration
+- only ask for permissions after explanation
+- matrix integration only after linking to matrix
+- ability to call out from app?
+- more default font in text input?
+- save after edit doesn't reload result
+- people page --> add text that it will remind
+- multiple reminder -- should update reminder
+- updating contact note doesn't update reminder text
+- first tab to "login with dropbox" doesn't trigger if no dropbox app installed

@@ -1,0 +1,691 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A608827CB699C00A6B11A /* GroupSelector.swift */; };
+		D70A608B27CB6FBD00A6B11A /* ContactGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */; };
+		D70A608F27CBA61800A6B11A /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = D70A608E27CBA61800A6B11A /* SwiftyDropbox */; };
+		D70A609327CBA63B00A6B11A /* DropboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609227CBA63B00A6B11A /* DropboxViewModel.swift */; };
+		D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609427CBA65000A6B11A /* DropboxModel.swift */; };
+		D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = D70A609827CBC44200A6B11A /* CodableCSV */; };
+		D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */; };
+		D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274EFF27CE881A00BBC63E /* MatrixView.swift */; };
+		D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274F0127CE88EB00BBC63E /* MatrixModel.swift */; };
+		D7395EB027F0543B00C9E2E6 /* ContactUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */; };
+		D7395EB127F0543B00C9E2E6 /* ContactUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */; };
+		D7395EB327F0615A00C9E2E6 /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9C527DD04340027FAA7 /* NotificationUtils.swift */; };
+		D7395EB527F0647900C9E2E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EB427F0647900C9E2E6 /* SettingsView.swift */; };
+		D7395EB627F0647900C9E2E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EB427F0647900C9E2E6 /* SettingsView.swift */; };
+		D7395EB827F06B3C00C9E2E6 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EB727F06B3C00C9E2E6 /* PersonModel.swift */; };
+		D7395EB927F06B3C00C9E2E6 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EB727F06B3C00C9E2E6 /* PersonModel.swift */; };
+		D7395EBB27F072B800C9E2E6 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EBA27F072B800C9E2E6 /* DateUtils.swift */; };
+		D7395EBC27F072B800C9E2E6 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EBA27F072B800C9E2E6 /* DateUtils.swift */; };
+		D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746E11227CBE69200AF53F5 /* RemindersView.swift */; };
+		D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
+		D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */; };
+		D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9927C8C21E00DBF849 /* CrewApp.swift */; };
+		D7831FAD27C8C21F00DBF849 /* CrewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9927C8C21E00DBF849 /* CrewApp.swift */; };
+		D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9B27C8C21E00DBF849 /* Persistence.swift */; };
+		D7831FB127C8C21F00DBF849 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831F9B27C8C21E00DBF849 /* Persistence.swift */; };
+		D7831FB227C8C21F00DBF849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7831F9C27C8C21F00DBF849 /* Assets.xcassets */; };
+		D7831FB327C8C21F00DBF849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7831F9C27C8C21F00DBF849 /* Assets.xcassets */; };
+		D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FBD27C8C24B00DBF849 /* CrewModel.swift */; };
+		D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FBD27C8C24B00DBF849 /* CrewModel.swift */; };
+		D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC027C8C25900DBF849 /* CrewView.swift */; };
+		D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC027C8C25900DBF849 /* CrewView.swift */; };
+		D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */ = {isa = PBXBuildFile; productRef = D7831FC427C8C2B000DBF849 /* SwiftyContacts */; };
+		D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
+		D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7831FC627CA0E9500DBF849 /* PersonView.swift */; };
+		D79AE9C627DD04340027FAA7 /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9C527DD04340027FAA7 /* NotificationUtils.swift */; };
+		D79AE9C927DDF4FE0027FAA7 /* StatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9C827DDF4FE0027FAA7 /* StatusModel.swift */; };
+		D79AE9CB27DDF5080027FAA7 /* StatusModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9CA27DDF5080027FAA7 /* StatusModelView.swift */; };
+		D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D70A608827CB699C00A6B11A /* GroupSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelector.swift; sourceTree = "<group>"; };
+		D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroup.swift; sourceTree = "<group>"; };
+		D70A609227CBA63B00A6B11A /* DropboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewModel.swift; sourceTree = "<group>"; };
+		D70A609427CBA65000A6B11A /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
+		D70A609627CBA8EC00A6B11A /* Crew--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Crew--iOS--Info.plist"; sourceTree = "<group>"; };
+		D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesView.swift; sourceTree = "<group>"; };
+		D7274EFF27CE881A00BBC63E /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
+		D7274F0127CE88EB00BBC63E /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
+		D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUtils.swift; sourceTree = "<group>"; };
+		D7395EB427F0647900C9E2E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D7395EB727F06B3C00C9E2E6 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
+		D7395EBA27F072B800C9E2E6 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		D746E11227CBE69200AF53F5 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
+		D7831F9927C8C21E00DBF849 /* CrewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewApp.swift; sourceTree = "<group>"; };
+		D7831F9B27C8C21E00DBF849 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		D7831F9C27C8C21F00DBF849 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D7831FA127C8C21F00DBF849 /* Crew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crew.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7831FA727C8C21F00DBF849 /* Crew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crew.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7831FA927C8C21F00DBF849 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		D7831FBD27C8C24B00DBF849 /* CrewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewModel.swift; sourceTree = "<group>"; };
+		D7831FC027C8C25900DBF849 /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
+		D7831FC627CA0E9500DBF849 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		D79AE9C527DD04340027FAA7 /* NotificationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtils.swift; sourceTree = "<group>"; };
+		D79AE9C827DDF4FE0027FAA7 /* StatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusModel.swift; sourceTree = "<group>"; };
+		D79AE9CA27DDF5080027FAA7 /* StatusModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusModelView.swift; sourceTree = "<group>"; };
+		D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTextView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D7831F9E27C8C21F00DBF849 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7831FC527C8C2B000DBF849 /* SwiftyContacts in Frameworks */,
+				D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */,
+				D70A608F27CBA61800A6B11A /* SwiftyDropbox in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7831FA427C8C21F00DBF849 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D70A608C27CBA5F400A6B11A /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				D70A609227CBA63B00A6B11A /* DropboxViewModel.swift */,
+				D70A609427CBA65000A6B11A /* DropboxModel.swift */,
+			);
+			path = Dropbox;
+			sourceTree = "<group>";
+		};
+		D7274EFC27CE87F900BBC63E /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				D7274EFF27CE881A00BBC63E /* MatrixView.swift */,
+				D7274F0127CE88EB00BBC63E /* MatrixModel.swift */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
+		D7395EB227F0578200C9E2E6 /* ModelUtils */ = {
+			isa = PBXGroup;
+			children = (
+				D79AE9C527DD04340027FAA7 /* NotificationUtils.swift */,
+				D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */,
+				D7395EBA27F072B800C9E2E6 /* DateUtils.swift */,
+			);
+			path = ModelUtils;
+			sourceTree = "<group>";
+		};
+		D7831F9127C8C21E00DBF849 = {
+			isa = PBXGroup;
+			children = (
+				D70A609627CBA8EC00A6B11A /* Crew--iOS--Info.plist */,
+				D7831F9627C8C21E00DBF849 /* Shared */,
+				D7831FA827C8C21F00DBF849 /* macOS */,
+				D7831FA227C8C21F00DBF849 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D7831F9627C8C21E00DBF849 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D7831F9927C8C21E00DBF849 /* CrewApp.swift */,
+				D7831FBD27C8C24B00DBF849 /* CrewModel.swift */,
+				D7831FC027C8C25900DBF849 /* CrewView.swift */,
+				D79AE9C727DDF4EC0027FAA7 /* StatusBar */,
+				D7274EFC27CE87F900BBC63E /* Matrix */,
+				D70A608C27CBA5F400A6B11A /* Dropbox */,
+				D79B445327CA6C56007D4B06 /* Views */,
+				D7395EB227F0578200C9E2E6 /* ModelUtils */,
+				D7831FBC27C8C22A00DBF849 /* CoreData */,
+				D7395EB727F06B3C00C9E2E6 /* PersonModel.swift */,
+				D7831FC627CA0E9500DBF849 /* PersonView.swift */,
+				D7395EB427F0647900C9E2E6 /* SettingsView.swift */,
+				D7831F9C27C8C21F00DBF849 /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D7831FA227C8C21F00DBF849 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7831FA127C8C21F00DBF849 /* Crew.app */,
+				D7831FA727C8C21F00DBF849 /* Crew.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7831FA827C8C21F00DBF849 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				D7831FA927C8C21F00DBF849 /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		D7831FBC27C8C22A00DBF849 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */,
+				D7831F9B27C8C21E00DBF849 /* Persistence.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D79AE9C727DDF4EC0027FAA7 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				D79AE9C827DDF4FE0027FAA7 /* StatusModel.swift */,
+				D79AE9CA27DDF5080027FAA7 /* StatusModelView.swift */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		D79B445327CA6C56007D4B06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */,
+				D746E11227CBE69200AF53F5 /* RemindersView.swift */,
+				D79B445427CA6C64007D4B06 /* ExpandingTextView.swift */,
+				D70A608827CB699C00A6B11A /* GroupSelector.swift */,
+				D70A608A27CB6FBD00A6B11A /* ContactGroup.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D7831FA027C8C21F00DBF849 /* Crew (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7831FB627C8C21F00DBF849 /* Build configuration list for PBXNativeTarget "Crew (iOS)" */;
+			buildPhases = (
+				D7831F9D27C8C21F00DBF849 /* Sources */,
+				D7831F9E27C8C21F00DBF849 /* Frameworks */,
+				D7831F9F27C8C21F00DBF849 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Crew (iOS)";
+			packageProductDependencies = (
+				D7831FC427C8C2B000DBF849 /* SwiftyContacts */,
+				D70A608E27CBA61800A6B11A /* SwiftyDropbox */,
+				D70A609827CBC44200A6B11A /* CodableCSV */,
+			);
+			productName = "Crew (iOS)";
+			productReference = D7831FA127C8C21F00DBF849 /* Crew.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D7831FA627C8C21F00DBF849 /* Crew (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7831FB927C8C21F00DBF849 /* Build configuration list for PBXNativeTarget "Crew (macOS)" */;
+			buildPhases = (
+				D7831FA327C8C21F00DBF849 /* Sources */,
+				D7831FA427C8C21F00DBF849 /* Frameworks */,
+				D7831FA527C8C21F00DBF849 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Crew (macOS)";
+			productName = "Crew (macOS)";
+			productReference = D7831FA727C8C21F00DBF849 /* Crew.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D7831F9227C8C21E00DBF849 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					D7831FA027C8C21F00DBF849 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					D7831FA627C8C21F00DBF849 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = D7831F9527C8C21E00DBF849 /* Build configuration list for PBXProject "Crew" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D7831F9127C8C21E00DBF849;
+			packageReferences = (
+				D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */,
+				D70A608D27CBA61800A6B11A /* XCRemoteSwiftPackageReference "SwiftyDropbox" */,
+				D70A609727CBC44200A6B11A /* XCRemoteSwiftPackageReference "CodableCSV" */,
+			);
+			productRefGroup = D7831FA227C8C21F00DBF849 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D7831FA027C8C21F00DBF849 /* Crew (iOS) */,
+				D7831FA627C8C21F00DBF849 /* Crew (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D7831F9F27C8C21F00DBF849 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7831FB227C8C21F00DBF849 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7831FA527C8C21F00DBF849 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7831FB327C8C21F00DBF849 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D7831F9D27C8C21F00DBF849 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7395EB527F0647900C9E2E6 /* SettingsView.swift in Sources */,
+				D79B445527CA6C64007D4B06 /* ExpandingTextView.swift in Sources */,
+				D7395EB827F06B3C00C9E2E6 /* PersonModel.swift in Sources */,
+				D7395EBB27F072B800C9E2E6 /* DateUtils.swift in Sources */,
+				D70A609327CBA63B00A6B11A /* DropboxViewModel.swift in Sources */,
+				D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */,
+				D79AE9CB27DDF5080027FAA7 /* StatusModelView.swift in Sources */,
+				D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */,
+				D7395EB027F0543B00C9E2E6 /* ContactUtils.swift in Sources */,
+				D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */,
+				D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */,
+				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
+				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
+				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
+				D70A608B27CB6FBD00A6B11A /* ContactGroup.swift in Sources */,
+				D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */,
+				D7831FBE27C8C24B00DBF849 /* CrewModel.swift in Sources */,
+				D7831FC127C8C25900DBF849 /* CrewView.swift in Sources */,
+				D7831FC727CA0E9500DBF849 /* PersonView.swift in Sources */,
+				D79AE9C927DDF4FE0027FAA7 /* StatusModel.swift in Sources */,
+				D79AE9C627DD04340027FAA7 /* NotificationUtils.swift in Sources */,
+				D746E11327CBE69200AF53F5 /* RemindersView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7831FA327C8C21F00DBF849 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7395EBC27F072B800C9E2E6 /* DateUtils.swift in Sources */,
+				D7831FAD27C8C21F00DBF849 /* CrewApp.swift in Sources */,
+				D7395EB327F0615A00C9E2E6 /* NotificationUtils.swift in Sources */,
+				D7395EB927F06B3C00C9E2E6 /* PersonModel.swift in Sources */,
+				D7831FB127C8C21F00DBF849 /* Persistence.swift in Sources */,
+				D7395EB127F0543B00C9E2E6 /* ContactUtils.swift in Sources */,
+				D7831FAB27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
+				D7395EB627F0647900C9E2E6 /* SettingsView.swift in Sources */,
+				D7831FBF27C8C24B00DBF849 /* CrewModel.swift in Sources */,
+				D7831FC227C8C25900DBF849 /* CrewView.swift in Sources */,
+				D7831FC827CA0E9500DBF849 /* PersonView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D7831FB427C8C21F00DBF849 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D7831FB527C8C21F00DBF849 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D7831FB727C8C21F00DBF849 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMLR5WZDH2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Crew--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Contact Notes";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contact access is required to list your contacts in order to add notes for them";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.carl-ambroselli.contactnotes";
+				PRODUCT_NAME = Crew;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D7831FB827C8C21F00DBF849 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMLR5WZDH2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Crew--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Contact Notes";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contact access is required to list your contacts in order to add notes for them";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.carl-ambroselli.contactnotes";
+				PRODUCT_NAME = Crew;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D7831FBA27C8C21F00DBF849 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMLR5WZDH2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pinivo.Crew;
+				PRODUCT_NAME = Crew;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D7831FBB27C8C21F00DBF849 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMLR5WZDH2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pinivo.Crew;
+				PRODUCT_NAME = Crew;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D7831F9527C8C21E00DBF849 /* Build configuration list for PBXProject "Crew" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7831FB427C8C21F00DBF849 /* Debug */,
+				D7831FB527C8C21F00DBF849 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7831FB627C8C21F00DBF849 /* Build configuration list for PBXNativeTarget "Crew (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7831FB727C8C21F00DBF849 /* Debug */,
+				D7831FB827C8C21F00DBF849 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7831FB927C8C21F00DBF849 /* Build configuration list for PBXNativeTarget "Crew (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7831FBA27C8C21F00DBF849 /* Debug */,
+				D7831FBB27C8C21F00DBF849 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D70A608D27CBA61800A6B11A /* XCRemoteSwiftPackageReference "SwiftyDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dropbox/SwiftyDropbox.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D70A609727CBC44200A6B11A /* XCRemoteSwiftPackageReference "CodableCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dehesa/CodableCSV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.7;
+			};
+		};
+		D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyContacts/SwiftyContacts.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D70A608E27CBA61800A6B11A /* SwiftyDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D70A608D27CBA61800A6B11A /* XCRemoteSwiftPackageReference "SwiftyDropbox" */;
+			productName = SwiftyDropbox;
+		};
+		D70A609827CBC44200A6B11A /* CodableCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D70A609727CBC44200A6B11A /* XCRemoteSwiftPackageReference "CodableCSV" */;
+			productName = CodableCSV;
+		};
+		D7831FC427C8C2B000DBF849 /* SwiftyContacts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7831FC327C8C2B000DBF849 /* XCRemoteSwiftPackageReference "SwiftyContacts" */;
+			productName = SwiftyContacts;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		D7831F9727C8C21E00DBF849 /* Crew.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */,
+			);
+			currentVersion = D7831F9827C8C21E00DBF849 /* Shared.xcdatamodel */;
+			path = Crew.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D7831F9227C8C21E00DBF849 /* Project object */;
+}
