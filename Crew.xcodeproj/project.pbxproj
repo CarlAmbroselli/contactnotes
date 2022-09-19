@@ -14,8 +14,6 @@
 		D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609427CBA65000A6B11A /* DropboxModel.swift */; };
 		D70A609927CBC44200A6B11A /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = D70A609827CBC44200A6B11A /* CodableCSV */; };
 		D70A609B27CBDBDA00A6B11A /* AllNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */; };
-		D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274EFF27CE881A00BBC63E /* MatrixView.swift */; };
-		D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7274F0127CE88EB00BBC63E /* MatrixModel.swift */; };
 		D7395EB027F0543B00C9E2E6 /* ContactUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */; };
 		D7395EB127F0543B00C9E2E6 /* ContactUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */; };
 		D7395EB327F0615A00C9E2E6 /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE9C527DD04340027FAA7 /* NotificationUtils.swift */; };
@@ -54,8 +52,6 @@
 		D70A609427CBA65000A6B11A /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
 		D70A609627CBA8EC00A6B11A /* Crew--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Crew--iOS--Info.plist"; sourceTree = "<group>"; };
 		D70A609A27CBDBDA00A6B11A /* AllNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesView.swift; sourceTree = "<group>"; };
-		D7274EFF27CE881A00BBC63E /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
-		D7274F0127CE88EB00BBC63E /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
 		D7395EAF27F0543B00C9E2E6 /* ContactUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUtils.swift; sourceTree = "<group>"; };
 		D7395EB427F0647900C9E2E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7395EB727F06B3C00C9E2E6 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
@@ -107,15 +103,6 @@
 			path = Dropbox;
 			sourceTree = "<group>";
 		};
-		D7274EFC27CE87F900BBC63E /* Matrix */ = {
-			isa = PBXGroup;
-			children = (
-				D7274EFF27CE881A00BBC63E /* MatrixView.swift */,
-				D7274F0127CE88EB00BBC63E /* MatrixModel.swift */,
-			);
-			path = Matrix;
-			sourceTree = "<group>";
-		};
 		D7395EB227F0578200C9E2E6 /* ModelUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,7 +130,6 @@
 				D7831FBD27C8C24B00DBF849 /* CrewModel.swift */,
 				D7831FC027C8C25900DBF849 /* CrewView.swift */,
 				D79AE9C727DDF4EC0027FAA7 /* StatusBar */,
-				D7274EFC27CE87F900BBC63E /* Matrix */,
 				D70A608C27CBA5F400A6B11A /* Dropbox */,
 				D79B445327CA6C56007D4B06 /* Views */,
 				D7395EB227F0578200C9E2E6 /* ModelUtils */,
@@ -316,12 +302,10 @@
 				D7395EB827F06B3C00C9E2E6 /* PersonModel.swift in Sources */,
 				D7395EBB27F072B800C9E2E6 /* DateUtils.swift in Sources */,
 				D70A609327CBA63B00A6B11A /* DropboxViewModel.swift in Sources */,
-				D7274F0227CE88EB00BBC63E /* MatrixModel.swift in Sources */,
 				D79AE9CB27DDF5080027FAA7 /* StatusModelView.swift in Sources */,
 				D70A608927CB699C00A6B11A /* GroupSelector.swift in Sources */,
 				D7395EB027F0543B00C9E2E6 /* ContactUtils.swift in Sources */,
 				D70A609527CBA65000A6B11A /* DropboxModel.swift in Sources */,
-				D7274F0027CE881A00BBC63E /* MatrixView.swift in Sources */,
 				D7831FAC27C8C21F00DBF849 /* CrewApp.swift in Sources */,
 				D7831FB027C8C21F00DBF849 /* Persistence.swift in Sources */,
 				D7831FAA27C8C21F00DBF849 /* Crew.xcdatamodeld in Sources */,
@@ -492,7 +476,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.carl-ambroselli.contactnotes";
 				PRODUCT_NAME = Crew;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -527,7 +511,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.carl-ambroselli.contactnotes";
 				PRODUCT_NAME = Crew;
 				PROVISIONING_PROFILE_SPECIFIER = "";

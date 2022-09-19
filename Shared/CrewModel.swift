@@ -25,11 +25,6 @@ class CrewModel: ObservableObject {
         }
     }
     
-    func updateMatrixRoomForPerson(person: CNContact, room: String) {
-        let updatedContact = ContactUtils.updateMatrixRoomForPerson(person: person, room: room)
-        updatedPerson(updatedContact)
-    }
-    
     func updatedPerson(_ updatedPerson: CNContact) {
         self.people = self.people.mapValues({ contacts in
             return contacts.map { contact in
@@ -64,61 +59,6 @@ class CrewModel: ObservableObject {
     func deleteReminder(_ reminder: Reminder) {
         NotificationUtils.deleteReminder(reminder)
     }
-    
-    func lastMessageIndicatorForContact(person: CNContact) -> LastContactIndicator {
-        if (!MatrixModel.shared.isAuthenticated || person.matrixRoom == nil) {
-            return .unknown
-        }
-        let group = ContactUtils.contactGroupOfPerson(person)
-        let slightlyOver = Date().timeIntervalSince(Calendar.current.date(
-            byAdding: .day,
-            value: 7,
-            to: Date())!)
-        guard let lastTimestamp = (MatrixModel.shared.roomTimestamps[person.matrixRoom!] ?? nil) else {
-            return .unknown
-        }
-        var targetDate: Date
-        switch (group) {
-            case .WEEKS_3:
-                targetDate = Calendar.current.date(
-                    byAdding: .day,
-                    value: -21,
-                    to: Date())!
-            case .MONTHS_2:
-                targetDate = Calendar.current.date(
-                    byAdding: .month,
-                    value: -2,
-                    to: Date())!
-            case .MONTHS_6:
-                targetDate = Calendar.current.date(
-                    byAdding: .month,
-                    value: -6,
-                    to: Date())!
-            case .YEARLY:
-                targetDate = Calendar.current.date(
-                    byAdding: .year,
-                    value: -1,
-                    to: Date())!
-            case .ALL_CONTACTS:
-                return .unknown
-        }
-            
-        let timeframe = lastTimestamp.timeIntervalSince(targetDate)
-        if (timeframe > 0) {
-            return .withinTimeframe
-        } else if (slightlyOver < timeframe) {
-            return .slightlyOver
-        } else {
-            return .significantlyOver
-        }
-    }
-}
-
-public enum LastContactIndicator: String {
-    case unknown
-    case withinTimeframe
-    case slightlyOver
-    case significantlyOver
 }
 
 extension Date {

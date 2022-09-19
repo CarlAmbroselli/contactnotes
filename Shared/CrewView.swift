@@ -40,7 +40,6 @@ struct CrewView: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .task {
                 NotificationUtils.requestAuthorization()
-                MatrixModel.shared.loadLatestState()
                 await viewModel.loadPeople()
             }
         }
@@ -120,10 +119,6 @@ struct ContactList: View {
         }
     }
     
-    func messageStatusForPerson(person: CNContact) -> LastContactIndicator {
-        return viewModel.lastMessageIndicatorForContact(person: person)
-    }
-    
     var body: some View {
         List {
             ForEach(people.keys.sorted(by: <), id: \.self) { key in
@@ -134,30 +129,15 @@ struct ContactList: View {
                                 element.contactIdentifier == person.identifier
                             })
                             NavigationLink(destination: PersonView(person: person, context: viewContext , model: viewModel)) {
-                                HStack{
+                                HStack {
                                     if (unreads.count > 0) {
                                         Image(systemName: "circle.fill").foregroundColor(Color.blue.opacity(unreads.count > 0 ? 1.0 : 0.0)).font(Font.system(size:8))
                                             .padding(.leading, 5)
                                             .padding(.trailing, -3)
                                     } else {
-                                        switch messageStatusForPerson(person: person) {
-                                            case .unknown:
-                                                Image(systemName: "circle.fill").foregroundColor(Color.red.opacity(0.0)).font(Font.system(size:8))
-                                                    .padding(.leading, 5)
-                                                    .padding(.trailing, -3)
-                                            case .withinTimeframe:
-                                                Image(systemName: "circle.fill").foregroundColor(Color.red.opacity(0.0)).font(Font.system(size:8))
-                                                    .padding(.leading, 5)
-                                                    .padding(.trailing, -3)
-                                            case .slightlyOver:
-                                                Image(systemName: "circle.fill").foregroundColor(Color.orange.opacity(1.0)).font(Font.system(size:8))
-                                                    .padding(.leading, 5)
-                                                    .padding(.trailing, -3)
-                                            case .significantlyOver:
-                                                Image(systemName: "circle.fill").foregroundColor(Color.red.opacity(1.0)).font(Font.system(size:8))
-                                                    .padding(.leading, 5)
-                                                    .padding(.trailing, -3)
-                                        }
+                                        Image(systemName: "circle.fill").foregroundColor(Color.red.opacity(0.0)).font(Font.system(size:8))
+                                            .padding(.leading, 5)
+                                            .padding(.trailing, -3)
                                     }
                                     ContactView(contact: person, isUnread: unreads.count > 0)
                                 }

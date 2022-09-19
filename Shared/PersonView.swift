@@ -15,16 +15,13 @@ struct PersonView: View {
     
     var crewModel: CrewModel
     
-    @ObservedObject var matrixModel: MatrixModel
     @State var noteText: String = ""
     
     private var contactGroup: ContactGroup {
         ContactUtils.contactGroupOfPerson(viewModel.person)
     }
     @State var reminderNote: Note?
-    @State var matrixRoomLink: String
     @State private var showReminderPopover = false
-    @State private var userWantsToChangeMatrixRoom: Bool = false
 
     private var fetchRequest: FetchRequest<Note>
     private var notes: FetchedResults<Note> {
@@ -38,27 +35,10 @@ struct PersonView: View {
             animation: .default)
         crewModel = model
         viewModel = PersonModel(person: person, context: context)
-        _matrixRoomLink = State(initialValue: person.matrixRoom ?? "")
-        matrixModel = MatrixModel.shared
     }
     
     var body: some View {
         VStack {
-            if (matrixModel.isAuthenticated) {
-                if (viewModel.person.matrixRoom != nil && !userWantsToChangeMatrixRoom) {
-                    LastMessageInfo(userWantsToChangeMatrixRoom: $userWantsToChangeMatrixRoom, roomId: matrixRoomLink)
-                        .onAppear {
-                            MatrixModel.shared.loadLatestState(silent: true)
-                        }
-                } else {
-                    MatrixRoomInput(
-                        matrixRoomLink: $matrixRoomLink,
-                        userWantsToChangeMatrixRoom: $userWantsToChangeMatrixRoom,
-                        person: viewModel.person,
-                        updateMatrixRoomForPerson: crewModel.updateMatrixRoomForPerson
-                    )
-                }
-            }
             List {
                 ForEach(notes) { note in
                     ZStack {
@@ -76,7 +56,7 @@ struct PersonView: View {
                             viewModel.editingNote = note
                             noteText = note.text ?? ""
                         } label: {
-                            Image(systemName: "pencil.circle")
+                            Image(systemName: "pencil.circle").rotationEffect(Angle(degrees: 180))
                         }.tint(.blue)
                         Button {
                             self.reminderNote = note
@@ -234,38 +214,6 @@ struct LastMessageInfo : View {
             }
             Spacer()
         }.padding(.top, 10)
-    }
-}
-
-struct MatrixRoomInput: View {
-    @Binding var matrixRoomLink: String
-    @Binding var userWantsToChangeMatrixRoom: Bool
-    
-    let person: CNContact
-    let updateMatrixRoomForPerson: (CNContact, String) -> Void
-    
-    var body: some View {
-        ZStack(alignment: .trailing) {
-            TextField(
-                "Enter matrix room: !xxxx:matrix.org",
-                text: $matrixRoomLink
-            )
-                .disableAutocorrection(true)
-                .padding(.trailing, 45)
-                .padding(.leading, 10)
-            if (!matrixRoomLink.isEmpty) {
-                Button(action: {
-                    withAnimation {
-                        self.userWantsToChangeMatrixRoom = false
-                        updateMatrixRoomForPerson(person, self.matrixRoomLink)
-                    }
-                }) {
-                    Image(systemName: "arrow.up.and.person.rectangle.portrait")
-                        .foregroundColor(.secondary)
-                }
-                .padding(.trailing, 15)
-            }
-        }
     }
 }
 

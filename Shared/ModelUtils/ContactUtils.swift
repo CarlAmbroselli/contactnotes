@@ -100,34 +100,6 @@ public class ContactUtils {
         }
     }
     
-    static func updateMatrixRoomForPerson(person: CNContact, room: String) -> CNContact {
-        guard let mutableContact = person.mutableCopy() as? CNMutableContact else {
-            return person
-        }
-        var socialProfiles = mutableContact.socialProfiles.filter { profile in
-            guard let label = profile.label else {
-                return true
-            }
-            if (label == "Matrix") {
-                // removing existing matrix profiles
-                return false
-            } else {
-                return true
-            }
-        }
-        
-        let matrixProfile = CNLabeledValue(label: "Matrix", value: CNSocialProfile(urlString: room, username: room, userIdentifier: room, service: "Matrix"))
-        socialProfiles.append(matrixProfile)
-        mutableContact.socialProfiles = socialProfiles
-        
-        do {
-            try updateContact(mutableContact)
-        } catch {
-            StatusModel.shared.show(message: "Error saving contact! \(error)", level: .ERROR)
-        }
-        return mutableContact
-    }
-    
     static func updateGroupForPerson(person: CNContact, group targetGroup: ContactGroup) -> [ContactGroup] {
         if (contactGroupOfPerson(person) == targetGroup) {
             return []

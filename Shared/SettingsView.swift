@@ -15,12 +15,6 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Integrations")) {
-                NavigationLink(destination: MatrixView()) {
-                    Text("Matrix integration")
-                }
-            }
-            
             Section(header: Text("Dropbox Backup")) {
                 ZStack {
                     HStack {
