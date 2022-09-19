@@ -39,7 +39,6 @@ struct CrewView: View {
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .task {
-                NotificationUtils.requestAuthorization()
                 await viewModel.loadPeople()
             }
         }

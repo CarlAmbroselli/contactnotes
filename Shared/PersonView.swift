@@ -149,6 +149,9 @@ struct ReminderConfiguration: View {
                             showReminderPopover = false
                         }
                     }
+                    .onAppear() {
+                        NotificationUtils.requestAuthorization()
+                    }
                 Spacer()
             }
             Button  {
