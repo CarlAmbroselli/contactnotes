@@ -26,8 +26,6 @@ struct CrewApp: App {
                             .padding(.bottom, 10)
                         Image("screenshot")
                             .padding()
-                        Text("Please allow contact access to add notes.")
-                            .padding()
                         Button(action: {
                             Task {
                                 _ = (try? await requestAccess()) ?? false
@@ -38,6 +36,8 @@ struct CrewApp: App {
                         }, label: {
                             Text("Allow contact access")
                         })
+                        Text("Contact access is required to add notes.")
+                            .padding()
                     }
                     Spacer()
                 }
